@@ -51,5 +51,6 @@ public class BitbucketCommitHookServlet extends HttpServlet {
             log("JSON parsing error", t);
         }
         response.setStatus(HttpServletResponse.SC_NO_CONTENT); // TODO:
+        response.getWriter().close(); // TODO:
     }
 }
