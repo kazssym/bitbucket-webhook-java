@@ -20,6 +20,8 @@ package org.vx68k.bitbucket.servlet;
 
 import java.io.IOException;
 import java.io.StringReader;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -38,6 +40,9 @@ import javax.servlet.http.HttpServletResponse;
         urlPatterns = {"/notify-commit"})
 public class BitbucketCommitHookServlet extends HttpServlet {
 
+    @Inject
+    private Event<BitbucketCommitNotification> notificationEvent;
+
     @Override
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException,
@@ -45,8 +50,8 @@ public class BitbucketCommitHookServlet extends HttpServlet {
         JsonReader reader = Json.createReader(
                 new StringReader(request.getParameter("payload")));
         try {
-            JsonObject object = reader.readObject();
-            log(object.toString());
+            JsonObject json = reader.readObject();
+            notificationEvent.fire(new BitbucketCommitNotification(json));
         } catch (JsonParsingException t) {
             log("JSON parsing error", t);
         }
