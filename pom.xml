@@ -21,7 +21,7 @@
   <artifactId>bitbucket-servlet</artifactId>
   <packaging>jar</packaging>
   <name>bitbucket-servlet</name>
-  <version>1.0</version>
+  <version>1.0-SNAPSHOT</version>
   <description>Servlet to handle Bitbucket POST notifications</description>
   <url>http://bitbucket.org/kazssym/bitbucket-servlet</url>
   <issueManagement>
