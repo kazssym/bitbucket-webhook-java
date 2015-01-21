@@ -23,6 +23,29 @@
   <name>bitbucket-servlet</name>
   <version>1.0</version>
   <description>Servlet to handle Bitbucket POST notifications</description>
+  <url>http://bitbucket.org/kazssym/bitbucket-servlet</url>
+  <issueManagement>
+    <system>Bitbucket</system>
+    <url>https://bitbucket.org/kazssym/bitbucket-servlet/issues</url>
+  </issueManagement>
+  <developers>
+    <developer>
+      <name>Kaz Nishimura</name>
+      <email>kazssym@vx68k.org</email>
+    </developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>GNU Affero General Public License version 3</name>
+      <url>http://www.gnu.org/licenses/agpl.html</url>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:hg:https://bitbucket.org/kazssym/bitbucket-servlet</connection>
+    <developerConnection>scm:hg:https://bitbucket.org/kazssym/bitbucket-servlet</developerConnection>
+    <tag>default</tag>
+    <url>https://bitbucket.org/kazssym/bitbucket-servlet/src</url>
+  </scm>
   <dependencies>
     <dependency>
       <groupId>javax.json</groupId>
