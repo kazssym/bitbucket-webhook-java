@@ -19,8 +19,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.vx68k</groupId>
   <artifactId>bitbucket-servlet</artifactId>
-  <version>1.0</version>
   <packaging>jar</packaging>
+  <name>bitbucket-servlet</name>
+  <version>1.0</version>
+  <description>Servlet to handle Bitbucket POST notifications</description>
   <dependencies>
     <dependency>
       <groupId>javax.json</groupId>
