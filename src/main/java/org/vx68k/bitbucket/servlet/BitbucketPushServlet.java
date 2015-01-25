@@ -1,6 +1,6 @@
 /*
- * BitbucketCommitHookServlet - receives commit notifies from Bitbucket
- * Copyright (C) 2014 Kaz Nishimura
+ * BitbucketPushServlet - gets notified of a push to a repository
+ * Copyright (C) 2014-2015 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -33,12 +33,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Gets notified when a user makes a push to a Bitbucket repository.
  *
- * @author Kaz
+ * @author Kaz Nishimura
+ * @since 1.0
  */
-@WebServlet(name = "Bitbucket Commit Hook Servlet",
-        urlPatterns = {"/notify-commit"})
-public class BitbucketCommitHookServlet extends HttpServlet {
+@WebServlet(name = "Bitbucket Push Servlet", urlPatterns = {"/notify"})
+public class BitbucketPushServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
 
     @Inject
     private Event<BitbucketCommitNotification> notificationEvent;
