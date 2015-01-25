@@ -1,5 +1,5 @@
 /*
- * BitbucketCommitNotification
+ * BitbucketPushNotification - notification of a push
  * Copyright (C) 2015 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -21,16 +21,16 @@ package org.vx68k.bitbucket.servlet;
 import javax.json.JsonObject;
 
 /**
- * Commit (push) notification from Bitbucket.
+ * Notification of a push to a Bitbucket repository.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class BitbucketCommitNotification {
+public class BitbucketPushNotification {
 
     private final JsonObject json;
 
-    public BitbucketCommitNotification(JsonObject json) {
+    public BitbucketPushNotification(JsonObject json) {
         this.json = json;
     }
 

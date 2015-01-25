@@ -44,7 +44,7 @@ public class BitbucketPushServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private Event<BitbucketCommitNotification> notificationEvent;
+    private Event<BitbucketPushNotification> notificationEvent;
 
     @Override
     protected void doPost(HttpServletRequest request,
@@ -54,7 +54,7 @@ public class BitbucketPushServlet extends HttpServlet {
                 new StringReader(request.getParameter("payload")));
         try {
             JsonObject json = reader.readObject();
-            notificationEvent.fire(new BitbucketCommitNotification(json));
+            notificationEvent.fire(new BitbucketPushNotification(json));
         } catch (JsonParsingException t) {
             log("JSON parsing error", t);
         }
