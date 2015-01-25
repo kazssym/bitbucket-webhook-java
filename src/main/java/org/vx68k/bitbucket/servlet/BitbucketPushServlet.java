@@ -44,7 +44,7 @@ public class BitbucketPushServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private Event<BitbucketPushNotification> notificationEvent;
+    private transient Event<BitbucketPushNotification> notificationEvent;
 
     @Override
     protected void doPost(HttpServletRequest request,
