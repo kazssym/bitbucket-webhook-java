@@ -34,9 +34,9 @@
         <version>3.0.0</version>
         <executions>
           <execution>
-            <id>check-findbugs</id>
+            <id>findbugs</id>
             <goals>
-              <goal>check</goal>
+              <goal>findbugs</goal>
             </goals>
           </execution>
         </executions>
