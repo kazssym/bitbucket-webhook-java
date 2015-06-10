@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  pom.xml for Bibucket Hook Example Application
+  pom.xml for Bibucket Webhook Example Application
   Copyright (C) 2014-2015 Kaz Nishimura
 
   This program is free software: you can redistribute it and/or modify it
@@ -18,13 +18,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <groupId>org.vx68k</groupId>
-    <artifactId>bitbucket-hook-servlet-parent</artifactId>
+    <artifactId>bitbucket-webhook-servlet-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>bitbucket-hook-example</artifactId>
+  <artifactId>bitbucket-webhook-example</artifactId>
   <packaging>war</packaging>
-  <name>Bitbucket Hook Example Application</name>
+  <name>Bitbucket Webhook Example Application</name>
   <build>
     <plugins>
       <plugin>
@@ -65,7 +65,7 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>bitbucket-hook-servlet</artifactId>
+      <artifactId>bitbucket-webhook-servlet</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

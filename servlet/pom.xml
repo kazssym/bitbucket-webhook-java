@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  pom.xml for Bitbucket Hook Servlet
+  pom.xml for Bitbucket Webhook Servlet
   Copyright (C) 2014-2015 Kaz Nishimura
 
   This program is free software: you can redistribute it and/or modify it
@@ -18,13 +18,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <groupId>org.vx68k</groupId>
-    <artifactId>bitbucket-hook-servlet-parent</artifactId>
+    <artifactId>bitbucket-webhook-servlet-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>bitbucket-hook-servlet</artifactId>
+  <artifactId>bitbucket-webhook-servlet</artifactId>
   <packaging>jar</packaging>
-  <name>Bitbucket Hook Servlet</name>
+  <name>Bitbucket Webhook Servlet</name>
   <description>Servlet to handle Bitbucket POST notifications</description>
   <build>
     <plugins>
