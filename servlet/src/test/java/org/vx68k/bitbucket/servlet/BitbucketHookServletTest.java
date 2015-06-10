@@ -1,5 +1,5 @@
 /*
- * BitbucketCommitHookServetTest
+ * BitbucketHookServetTest
  * Copyright (C) 2015 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -24,12 +24,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for {@link BitbucketCommitHookServlet}.
+ * Unit tests for {@link BitbucketHookServlet}.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class BitbucketCommitHookServletTest {
+public class BitbucketHookServletTest {
 
     @Before
     public void setUp() {

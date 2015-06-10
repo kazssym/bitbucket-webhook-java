@@ -1,5 +1,5 @@
 /*
- * BitbucketPushServlet - gets notified of a push to a repository
+ * BitbucketHookServlet - handles HTTP requests from Bitbucket POST hooks
  * Copyright (C) 2014-2015 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -33,13 +33,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Gets notified when a user makes a push to a Bitbucket repository.
+ * Handles HTTP requests from Bitbucket POST hooks.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-@WebServlet(name = "Bitbucket Push Servlet", urlPatterns = {"/notify"})
-public class BitbucketPushServlet extends HttpServlet {
+@WebServlet(
+        name = "Bitbucket Hook Servlet",
+        // URL pattern "/notify" is retained for backward compatibility.
+        urlPatterns = {"/push", "/notify"})
+public class BitbucketHookServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
