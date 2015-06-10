@@ -21,7 +21,7 @@ package org.vx68k.bitbucket;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import org.vx68k.bitbucket.servlet.BitbucketPushNotification;
+import org.vx68k.bitbucket.BitbucketRepositoryPush;
 
 /**
  * Logs the JSON object for each push notification.
@@ -34,7 +34,7 @@ public class LoggingObserver {
 
     private final Logger logger = Logger.getLogger(getClass().getName());
 
-    public void commitNotified(@Observes BitbucketPushNotification push) {
+    public void commitNotified(@Observes BitbucketRepositoryPush push) {
         logger.info(push.getJson().toString());
     }
 }
