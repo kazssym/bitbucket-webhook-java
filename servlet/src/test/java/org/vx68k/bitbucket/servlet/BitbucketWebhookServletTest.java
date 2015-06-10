@@ -24,12 +24,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for {@link BitbucketHookServlet}.
+ * Unit tests for {@link BitbucketWebhookServlet}.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class BitbucketHookServletTest {
+public class BitbucketWebhookServletTest {
 
     @Before
     public void setUp() {
@@ -41,6 +41,6 @@ public class BitbucketHookServletTest {
 
     @Test
     public void testInstantiation() {
-        BitbucketHookServlet servlet = new BitbucketHookServlet();
+        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet();
     }
 }

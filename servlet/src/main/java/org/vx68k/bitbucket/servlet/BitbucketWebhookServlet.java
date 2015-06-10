@@ -1,5 +1,5 @@
 /*
- * BitbucketHookServlet - handles HTTP requests from Bitbucket POST hooks
+ * BitbucketWebhookServlet - handles HTTP requests from Bitbucket webhooks
  * Copyright (C) 2014-2015 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -33,16 +33,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Handles HTTP requests from Bitbucket POST hooks.
+ * Handles HTTP requests from Bitbucket webhooks.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
 @WebServlet(
-        name = "Bitbucket Hook Servlet",
+        name = "Bitbucket Webhook Servlet",
         // URL pattern "/notify" is retained for backward compatibility.
-        urlPatterns = {"/push", "/notify"})
-public class BitbucketHookServlet extends HttpServlet {
+        urlPatterns = {"/webhook", "/notify"})
+public class BitbucketWebhookServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
