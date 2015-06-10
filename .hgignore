@@ -1,7 +1,7 @@
 # .hgignore
 
 # Maven output directory:
-^target/
+(^|/)target/
 
 # NetBeans local files:
 ^nb-
