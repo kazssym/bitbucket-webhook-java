@@ -19,8 +19,7 @@
 package org.vx68k.bitbucket.servlet;
 
 import java.io.IOException;
-import java.io.StringReader;
-import java.util.Enumeration;
+import java.io.InputStreamReader;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -54,29 +53,23 @@ public class BitbucketWebhookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException,
             IOException {
-        // TODO: Remove this temporary section.
-        Enumeration<String> p = request.getParameterNames();
-        while (p.hasMoreElements()) {
-            log(p.nextElement());
+        String encoding = request.getCharacterEncoding();
+        log("The request encoding is " + encoding);
+        if (encoding == null) {
+            encoding = "UTF-8";
         }
 
-        String payload = request.getParameter("repo:push");
-        if (payload != null) {
-            JsonReader reader = Json.createReader(new StringReader(payload));
-            try {
-                JsonObject json = reader.readObject();
-                notificationEvent.fire(new BitbucketPushNotification(json));
-            } catch (JsonParsingException t) {
-                log("JSON parsing error", t);
-            }
-            // TODO: Use HttpServletResponse.SC_OK instead.
-            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-            // TODO: Return a result page.
-            response.getWriter().close();
-        } else {
-            response.setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
-            // TODO: Return an error page.
-            response.getWriter().close();
+        JsonReader reader = Json.createReader(
+                new InputStreamReader(request.getInputStream(), encoding));
+        try {
+            JsonObject json = reader.readObject();
+            notificationEvent.fire(new BitbucketPushNotification(json));
+        } catch (JsonParsingException t) {
+            log("JSON parsing error", t);
         }
+        // TODO: Use HttpServletResponse.SC_OK instead.
+        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        // TODO: Return a result page.
+        response.getWriter().close();
     }
 }
