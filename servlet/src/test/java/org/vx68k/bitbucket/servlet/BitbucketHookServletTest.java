@@ -38,4 +38,9 @@ public class BitbucketHookServletTest {
     @After
     public void tearDown() {
     }
+
+    @Test
+    public void testInstantiation() {
+        BitbucketHookServlet servlet = new BitbucketHookServlet();
+    }
 }
