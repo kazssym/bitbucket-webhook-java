@@ -42,14 +42,14 @@
       <id>basic</id>
       <dependencies>
         <dependency>
+          <groupId>org.jboss.weld.servlet</groupId>
+          <artifactId>weld-servlet</artifactId>
+          <version>1.1.28.Final</version>
+        </dependency>
+        <dependency>
           <groupId>org.glassfish</groupId>
           <artifactId>javax.faces</artifactId>
           <version>2.1.29</version>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.weld</groupId>
-          <artifactId>weld-core</artifactId>
-          <version>1.1.28.Final</version>
         </dependency>
       </dependencies>
       <properties>
