@@ -49,7 +49,7 @@
     <url>https://bitbucket.org/kazssym/bitbucket-hook-servlet/src</url>
   </scm>
   <organization>
-    <name>Kaz Nishimura</name>
+    <name>Nishimura Software Studio</name>
   </organization>
   <build>
     <pluginManagement>
