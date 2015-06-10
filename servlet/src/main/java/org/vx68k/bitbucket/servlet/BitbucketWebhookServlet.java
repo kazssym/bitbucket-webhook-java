@@ -20,6 +20,7 @@ package org.vx68k.bitbucket.servlet;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Enumeration;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -53,6 +54,12 @@ public class BitbucketWebhookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException,
             IOException {
+        // TODO: Remove this temporary section.
+        Enumeration<String> p = request.getParameterNames();
+        while (p.hasMoreElements()) {
+            log(p.nextElement());
+        }
+
         String payload = request.getParameter("repo:push");
         if (payload != null) {
             JsonReader reader = Json.createReader(new StringReader(payload));
