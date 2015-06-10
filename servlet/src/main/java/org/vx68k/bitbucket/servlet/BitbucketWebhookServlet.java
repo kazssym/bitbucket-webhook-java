@@ -53,15 +53,23 @@ public class BitbucketWebhookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException,
             IOException {
-        JsonReader reader = Json.createReader(
-                new StringReader(request.getParameter("payload")));
-        try {
-            JsonObject json = reader.readObject();
-            notificationEvent.fire(new BitbucketPushNotification(json));
-        } catch (JsonParsingException t) {
-            log("JSON parsing error", t);
+        String payload = request.getParameter("repo:push");
+        if (payload != null) {
+            JsonReader reader = Json.createReader(new StringReader(payload));
+            try {
+                JsonObject json = reader.readObject();
+                notificationEvent.fire(new BitbucketPushNotification(json));
+            } catch (JsonParsingException t) {
+                log("JSON parsing error", t);
+            }
+            // TODO: Use HttpServletResponse.SC_OK instead.
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            // TODO: Return a result page.
+            response.getWriter().close();
+        } else {
+            response.setStatus(HttpServletResponse.SC_PRECONDITION_FAILED);
+            // TODO: Return an error page.
+            response.getWriter().close();
         }
-        response.setStatus(HttpServletResponse.SC_NO_CONTENT); // TODO:
-        response.getWriter().close(); // TODO:
     }
 }
