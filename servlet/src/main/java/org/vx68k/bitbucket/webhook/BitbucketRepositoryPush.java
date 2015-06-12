@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket;
+package org.vx68k.bitbucket.webhook;
 
 import javax.json.JsonObject;
 

@@ -31,7 +31,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.vx68k.bitbucket.BitbucketRepositoryPush;
+import org.vx68k.bitbucket.webhook.BitbucketRepositoryPush;
 
 /**
  * Handles HTTP requests from Bitbucket webhooks.

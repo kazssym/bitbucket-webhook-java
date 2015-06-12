@@ -16,15 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket;
+package org.vx68k.bitbucket.webhook;
 
 import java.net.URL;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
-import org.vx68k.bitbucket.webhook.BitbucketUtilities;
 
 /**
  * Represents a Bitbucket user.

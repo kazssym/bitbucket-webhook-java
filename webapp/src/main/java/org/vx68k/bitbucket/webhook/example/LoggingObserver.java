@@ -21,8 +21,8 @@ package org.vx68k.bitbucket.webhook.example;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import org.vx68k.bitbucket.BitbucketRepositoryPush;
-import org.vx68k.bitbucket.BitbucketUser;
+import org.vx68k.bitbucket.webhook.BitbucketRepositoryPush;
+import org.vx68k.bitbucket.webhook.BitbucketUser;
 
 /**
  * Logs the JSON object for each push notification.
