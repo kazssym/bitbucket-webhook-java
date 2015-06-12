@@ -47,6 +47,8 @@ public class BitbucketWebhookServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    private static final String PUSH_KEY = "push";
+
     @Inject
     private transient Event<BitbucketRepositoryPush> repositoryPushEvent;
 
@@ -63,12 +65,8 @@ public class BitbucketWebhookServlet extends HttpServlet {
         JsonReader reader = Json.createReader(
                 new InputStreamReader(request.getInputStream(), encoding));
         try {
-            JsonObject json = reader.readObject();
-            if (json.containsKey("push")) {
-                repositoryPushEvent.fire(new BitbucketRepositoryPush(json));
-            } else {
-                log("Unhandled JSON: " + json.toString());
-            }
+            JsonObject object = reader.readObject();
+            dispatch(object);
         } catch (JsonParsingException t) {
             log("JSON parsing error", t);
         }
@@ -76,5 +74,14 @@ public class BitbucketWebhookServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         // TODO: Return a result page.
         response.getWriter().close();
+    }
+
+    protected void dispatch(JsonObject object) {
+        if (object.containsKey(PUSH_KEY)) {
+            JsonObject pushObject = object.getJsonObject(PUSH_KEY);
+            repositoryPushEvent.fire(new BitbucketRepositoryPush(pushObject));
+        } else {
+            log("Unhandled JSON: " + object.toString());
+        }
     }
 }
