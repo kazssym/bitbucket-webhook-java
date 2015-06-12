@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.webhook.BitbucketUtilities;
 
 /**
  * Represents a Bitbucket user.
@@ -124,26 +125,8 @@ public class BitbucketUser {
         BitbucketUser user = new BitbucketUser();
         user.setUsername(object.getString("username"));
         user.setDisplayName(object.getString("display_name"));
-        user.setUuid(parseUuid(object.getString("uuid")));
+        user.setUuid(BitbucketUtilities.parseUuid(object.getString("uuid")));
         // TODO: Parse links.
         return user;
-    }
-
-    /**
-     * Parses a string which represents a UUID, which may enclosed in braces.
-     *
-     * @param uuidString {@link String} which represents a UUID
-     * @return parsed {@link UUID} object, or <code>null</code> if uuidString
-     * is <code>null</code>
-     */
-    private static UUID parseUuid(String uuidString) {
-        if (uuidString == null) {
-            return null;
-        }
-
-        if (uuidString.startsWith("{") && uuidString.endsWith("}")) {
-            uuidString = uuidString.substring(1, uuidString.length() - 1);
-        }
-        return UUID.fromString(uuidString);
     }
 }
