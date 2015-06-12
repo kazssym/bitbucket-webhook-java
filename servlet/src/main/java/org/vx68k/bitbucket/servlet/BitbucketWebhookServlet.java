@@ -55,7 +55,7 @@ public class BitbucketWebhookServlet extends HttpServlet {
             HttpServletResponse response) throws ServletException,
             IOException {
         String encoding = request.getCharacterEncoding();
-        log("The request encoding is " + encoding);
+        log("Request encoding: " + encoding);
         if (encoding == null) {
             encoding = "UTF-8";
         }
