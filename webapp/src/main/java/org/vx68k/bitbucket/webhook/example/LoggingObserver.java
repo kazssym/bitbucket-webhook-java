@@ -1,6 +1,6 @@
 /*
  * LoggingObserver
- * Copyright (C) 2015 Kaz Nishimura
+ * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -16,12 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket;
+package org.vx68k.bitbucket.webhook.example;
 
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import org.vx68k.bitbucket.BitbucketRepositoryPush;
+import org.vx68k.bitbucket.BitbucketUser;
 
 /**
  * Logs the JSON object for each push notification.
