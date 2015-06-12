@@ -28,13 +28,33 @@ import javax.json.JsonObject;
  */
 public class BitbucketRepositoryPush {
 
+    private BitbucketUser actor;
+
     private final JsonObject json;
 
     public BitbucketRepositoryPush(JsonObject json) {
         this.json = json;
     }
 
+    /**
+     * Returns the actor of this repository push.
+     *
+     * @return {@link BitbucketUser} object for the actor
+     */
+    public BitbucketUser getActor() {
+        return actor;
+    }
+
     public JsonObject getJson() {
         return json;
+    }
+
+    /**
+     * Sets the actor of this repository push.
+     *
+     * @param actor {@link BitbucketUser} object for the new actor
+     */
+    public void setActor(BitbucketUser actor) {
+        this.actor = actor;
     }
 }
