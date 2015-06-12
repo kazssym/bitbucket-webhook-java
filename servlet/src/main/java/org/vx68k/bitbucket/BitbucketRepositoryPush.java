@@ -1,5 +1,5 @@
 /*
- * BitbucketRepositoryPush - represents a repository push
+ * BitbucketRepositoryPush - represents a push to a Bitbucket repository
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -39,8 +39,10 @@ public class BitbucketRepositoryPush {
 
     private JsonObject json;
 
+    private JsonObject rawJsonObject;
+
     /**
-     * Returns the actor of this repository push.
+     * Returns the actor of this push.
      *
      * @return {@link BitbucketUser} object for the actor
      */
@@ -53,7 +55,16 @@ public class BitbucketRepositoryPush {
     }
 
     /**
-     * Sets the actor of this repository push.
+     * Returns the raw JSON object for this push.
+     *
+     * @return JSON object
+     */
+    public JsonObject getRawJsonObject() {
+        return rawJsonObject;
+    }
+
+    /**
+     * Sets the actor of this push.
      *
      * @param actor {@link BitbucketUser} object for the new actor
      */
@@ -63,6 +74,14 @@ public class BitbucketRepositoryPush {
 
     public void setJson(JsonObject json) {
         this.json = json;
+    }
+
+    /**
+     * Sets the raw JSON object for this push.
+     * @param rawJsonObject
+     */
+    public void setRawJsonObject(JsonObject rawJsonObject) {
+        this.rawJsonObject = rawJsonObject;
     }
 
     /**
@@ -77,6 +96,7 @@ public class BitbucketRepositoryPush {
         JsonObject actorObject = object.getJsonObject(ACTOR_KEY);
         push.setActor(BitbucketUser.fromJsonObject(actorObject));
         push.setJson(object.getJsonObject(PUSH_KEY));
+        push.setRawJsonObject(object);
         return push;
     }
 }
