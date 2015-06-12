@@ -35,6 +35,8 @@ public class LoggingObserver {
     private final Logger logger = Logger.getLogger(getClass().getName());
 
     public void commitNotified(@Observes BitbucketRepositoryPush push) {
-        logger.info(push.getJson().toString());
+        BitbucketUser actor = push.getActor();
+        logger.info(actor.getUsername() + " pushed");
+        logger.fine(push.getJson().toString());
     }
 }
