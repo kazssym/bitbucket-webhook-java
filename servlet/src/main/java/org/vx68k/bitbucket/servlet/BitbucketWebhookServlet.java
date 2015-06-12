@@ -1,6 +1,6 @@
 /*
  * BitbucketWebhookServlet - handles HTTP requests from Bitbucket webhooks
- * Copyright (C) 2014-2015 Kaz Nishimura
+ * Copyright (C) 2014-2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
