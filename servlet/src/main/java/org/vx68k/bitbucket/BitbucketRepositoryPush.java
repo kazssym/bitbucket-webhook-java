@@ -28,13 +28,16 @@ import javax.json.JsonObject;
  */
 public class BitbucketRepositoryPush {
 
+    private static final String ACTOR_KEY = "actor";
+
+    /**
+     * JSON key for the push object.
+     */
+    public static final String PUSH_KEY = "push";
+
     private BitbucketUser actor;
 
-    private final JsonObject json;
-
-    public BitbucketRepositoryPush(JsonObject json) {
-        this.json = json;
-    }
+    private JsonObject json;
 
     /**
      * Returns the actor of this repository push.
@@ -56,5 +59,24 @@ public class BitbucketRepositoryPush {
      */
     public void setActor(BitbucketUser actor) {
         this.actor = actor;
+    }
+
+    public void setJson(JsonObject json) {
+        this.json = json;
+    }
+
+    /**
+     * Creates a {@link BitbucketRepositoryPush} object from a JSON object.
+     *
+     * @param object JSON object
+     * @return parsed {@link BitbucketRepositoryPush} object
+     * @exception NullPointerException if any required fields are missing
+     */
+    public static BitbucketRepositoryPush fromJsonObject(JsonObject object) {
+        BitbucketRepositoryPush push = new BitbucketRepositoryPush();
+        JsonObject actorObject = object.getJsonObject(ACTOR_KEY);
+        push.setActor(BitbucketUser.fromJsonObject(actorObject));
+        push.setJson(object.getJsonObject(PUSH_KEY));
+        return push;
     }
 }
