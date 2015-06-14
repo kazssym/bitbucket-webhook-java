@@ -18,13 +18,17 @@
 
 package org.vx68k.bitbucket.webhook.servlet;
 
+import java.io.IOException;
 import java.util.Enumeration;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vx68k.bitbucket.webhook.servlet.stub.StubHttpServletRequest;
+import org.vx68k.bitbucket.webhook.servlet.stub.StubHttpServletResponse;
 import static org.junit.Assert.*;
 
 /**
@@ -48,6 +52,38 @@ public class BitbucketWebhookServletTest implements ServletConfig {
         BitbucketWebhookServlet servlet = new BitbucketWebhookServlet();
         servlet.init(this);
         servlet.destroy();
+    }
+
+    @Test
+    public void testGet() throws ServletException, IOException {
+        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet();
+        servlet.init(this);
+        try {
+            StubHttpServletRequest request = new StubHttpServletRequest();
+            request.setMethod("GET");
+
+            StubHttpServletResponse response = new StubHttpServletResponse();
+            servlet.service(request, response);
+            assertNotEquals(HttpServletResponse.SC_OK, response.getStatus());
+        } finally {
+            servlet.destroy();
+        }
+    }
+
+    @Test
+    public void testHead() throws ServletException, IOException {
+        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet();
+        servlet.init(this);
+        try {
+            StubHttpServletRequest request = new StubHttpServletRequest();
+            request.setMethod("HEAD");
+
+            StubHttpServletResponse response = new StubHttpServletResponse();
+            servlet.service(request, response);
+            assertNotEquals(HttpServletResponse.SC_OK, response.getStatus());
+        } finally {
+            servlet.destroy();
+        }
     }
 
     @Override

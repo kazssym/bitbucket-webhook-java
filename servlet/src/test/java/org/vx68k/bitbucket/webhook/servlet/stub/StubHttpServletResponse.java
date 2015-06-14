@@ -20,6 +20,7 @@ package org.vx68k.bitbucket.webhook.servlet.stub;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Locale;
 import javax.servlet.ServletOutputStream;
@@ -34,6 +35,30 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class StubHttpServletResponse implements HttpServletResponse {
 
+    private boolean committed = false;
+
+    private int status = SC_OK;
+
+    private String contentType = null;
+
+    private byte[] content = new byte[0];
+
+    private Error sentError = null;
+
+    public Error getSentError() {
+        return sentError;
+    }
+
+    protected void commit() {
+        committed = true;
+    }
+
+    protected void checkIfNotCommitted() {
+        if (isCommitted()) {
+            throw new IllegalStateException("Already committed");
+        }
+    }
+
     @Override
     public void addCookie(Cookie cookie) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -41,7 +66,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
 
     @Override
     public boolean containsHeader(String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // TODO: Check the header name.
+        return false;
     }
 
     @Override
@@ -65,13 +91,18 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void sendError(int sc, String msg) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void sendError(int status, String message) throws IOException {
+        checkIfNotCommitted();
+        setStatus(status);
+        sentError = new Error(status, message);
+
+        setContentType("text/html");
+        commit();
     }
 
     @Override
-    public void sendError(int sc) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void sendError(int status) throws IOException {
+        sendError(status, null);
     }
 
     @Override
@@ -110,18 +141,21 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void setStatus(int sc) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setStatus(int status) {
+        if (!isCommitted()) {
+            this.status = status;
+        }
     }
 
+    @Deprecated
     @Override
-    public void setStatus(int sc, String sm) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setStatus(int status, String message) {
+        setStatus(status);
     }
 
     @Override
     public int getStatus() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return status;
     }
 
     @Override
@@ -146,7 +180,7 @@ public class StubHttpServletResponse implements HttpServletResponse {
 
     @Override
     public String getContentType() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return contentType;
     }
 
     @Override
@@ -165,13 +199,20 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void setContentLength(int len) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setContentLength(int contentLength) {
+        if (!isCommitted()) {
+            if (contentLength != content.length) {
+                content = Arrays.copyOf(content, contentLength);
+            }
+            // TODO: Set the Content-Length header.
+        }
     }
 
     @Override
-    public void setContentType(String type) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setContentType(String contentType) {
+        if (!isCommitted()) {
+            this.contentType = contentType;
+        }
     }
 
     @Override
@@ -196,7 +237,7 @@ public class StubHttpServletResponse implements HttpServletResponse {
 
     @Override
     public boolean isCommitted() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return committed;
     }
 
     @Override
@@ -212,5 +253,24 @@ public class StubHttpServletResponse implements HttpServletResponse {
     @Override
     public Locale getLocale() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public static class Error {
+
+        private final int status;
+        private final String message;
+
+        public Error(int status, String message) {
+            this.status = status;
+            this.message = message;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public String getMessage() {
+            return message;
+        }
     }
 }

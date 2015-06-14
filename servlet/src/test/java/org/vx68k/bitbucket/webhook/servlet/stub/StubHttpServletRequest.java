@@ -48,6 +48,12 @@ import javax.servlet.http.Part;
  */
 public class StubHttpServletRequest implements HttpServletRequest {
 
+    private String method = "GET";
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
     @Override
     public String getAuthType() {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -85,7 +91,7 @@ public class StubHttpServletRequest implements HttpServletRequest {
 
     @Override
     public String getMethod() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return method;
     }
 
     @Override
@@ -258,7 +264,7 @@ public class StubHttpServletRequest implements HttpServletRequest {
 
     @Override
     public String getProtocol() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "HTTP/1.1";
     }
 
     @Override
