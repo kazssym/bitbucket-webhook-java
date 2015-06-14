@@ -18,6 +18,10 @@
 
 package org.vx68k.bitbucket.webhook.servlet;
 
+import java.util.Enumeration;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +33,7 @@ import static org.junit.Assert.*;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class BitbucketWebhookServletTest {
+public class BitbucketWebhookServletTest implements ServletConfig {
 
     @Before
     public void setUp() {
@@ -40,7 +44,29 @@ public class BitbucketWebhookServletTest {
     }
 
     @Test
-    public void testInstantiation() {
+    public void testLifecycle() throws ServletException {
         BitbucketWebhookServlet servlet = new BitbucketWebhookServlet();
+        servlet.init(this);
+        servlet.destroy();
+    }
+
+    @Override
+    public String getServletName() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public ServletContext getServletContext() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String getInitParameter(String name) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Enumeration<String> getInitParameterNames() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
