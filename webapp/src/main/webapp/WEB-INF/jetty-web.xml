@@ -30,9 +30,4 @@
       <New class="org.jboss.weld.environment.servlet.Listener"/>
     </Arg>
   </Call>
-  <Call name="addEventListener">
-    <Arg>
-      <New class="com.sun.faces.config.ConfigureListener"/>
-    </Arg>
-  </Call>
 </Configure>
