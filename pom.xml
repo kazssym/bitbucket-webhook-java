@@ -70,6 +70,14 @@
             <locale>en_US</locale>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <version>3.0.0</version>
+          <configuration>
+            <xmlOutput>true</xmlOutput>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
