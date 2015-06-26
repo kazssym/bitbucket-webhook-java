@@ -25,9 +25,4 @@
       </New>
     </Set>
   </Get>
-  <Call name="addEventListener">
-    <Arg>
-      <New class="org.jboss.weld.environment.servlet.Listener"/>
-    </Arg>
-  </Call>
 </Configure>
