@@ -48,7 +48,7 @@ public class BitbucketWebhookServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private transient Event<BitbucketRepositoryPush> repositoryPushEvent;
+    private Event<BitbucketRepositoryPush> repositoryPushEvent;
 
     @Override
     protected void doPost(HttpServletRequest request,
@@ -76,8 +76,7 @@ public class BitbucketWebhookServlet extends HttpServlet {
 
     protected void dispatch(JsonObject object) {
         if (object.containsKey(BitbucketRepositoryPush.PUSH_KEY)) {
-            repositoryPushEvent.fire(
-                    BitbucketRepositoryPush.fromJsonObject(object));
+            repositoryPushEvent.fire(new BitbucketRepositoryPush(object));
         } else {
             log("Unhandled JSON: " + object.toString());
         }

@@ -26,77 +26,27 @@ import javax.json.JsonObject;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class BitbucketRepositoryPush {
-
-    private static final String ACTOR_KEY = "actor";
+public class BitbucketRepositoryPush extends BitbucketActivity {
 
     /**
      * JSON key for the push object.
      */
     public static final String PUSH_KEY = "push";
 
-    private BitbucketUser actor;
-
-    private JsonObject json;
-
-    private JsonObject rawJsonObject;
+    private final JsonObject pushJsonObject;
 
     /**
-     * Returns the actor of this push.
+     * Constructs this object from a JSON object.
      *
-     * @return {@link BitbucketUser} object for the actor
+     * @param jsonObject JSON object
      */
-    public BitbucketUser getActor() {
-        return actor;
+    public BitbucketRepositoryPush(JsonObject jsonObject) {
+        super(jsonObject);
+
+        pushJsonObject = jsonObject.getJsonObject(PUSH_KEY);
     }
 
-    public JsonObject getJson() {
-        return json;
-    }
-
-    /**
-     * Returns the raw JSON object for this push.
-     *
-     * @return JSON object
-     */
-    public JsonObject getRawJsonObject() {
-        return rawJsonObject;
-    }
-
-    /**
-     * Sets the actor of this push.
-     *
-     * @param actor {@link BitbucketUser} object for the new actor
-     */
-    public void setActor(BitbucketUser actor) {
-        this.actor = actor;
-    }
-
-    public void setJson(JsonObject json) {
-        this.json = json;
-    }
-
-    /**
-     * Sets the raw JSON object for this push.
-     * @param rawJsonObject
-     */
-    public void setRawJsonObject(JsonObject rawJsonObject) {
-        this.rawJsonObject = rawJsonObject;
-    }
-
-    /**
-     * Creates a {@link BitbucketRepositoryPush} object from a JSON object.
-     *
-     * @param object JSON object
-     * @return parsed {@link BitbucketRepositoryPush} object
-     * @exception NullPointerException if any required fields are missing
-     */
-    public static BitbucketRepositoryPush fromJsonObject(JsonObject object) {
-        BitbucketRepositoryPush push = new BitbucketRepositoryPush();
-        JsonObject actorObject = object.getJsonObject(ACTOR_KEY);
-        push.setActor(BitbucketUser.fromJsonObject(actorObject));
-        push.setJson(object.getJsonObject(PUSH_KEY));
-        push.setRawJsonObject(object);
-        return push;
+    public JsonObject getPushJsonObject() {
+        return pushJsonObject;
     }
 }
