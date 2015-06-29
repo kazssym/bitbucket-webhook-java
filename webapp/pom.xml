@@ -60,16 +60,19 @@
   </build>
   <profiles>
     <profile>
-      <id>basic</id>
+      <id>servlet</id>
       <dependencies>
+        <dependency>
+          <groupId>org.glassfish</groupId>
+          <artifactId>javax.faces</artifactId>
+        </dependency>
         <dependency>
           <groupId>org.jboss.weld.servlet</groupId>
           <artifactId>weld-servlet</artifactId>
-          <version>1.1.28.Final</version>
         </dependency>
       </dependencies>
       <properties>
-        <maven.war.classifier>basic</maven.war.classifier>
+        <maven.war.classifier>servlet</maven.war.classifier>
       </properties>
     </profile>
   </profiles>
@@ -100,4 +103,18 @@
       <version>${project.version}</version>
     </dependency>
   </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.glassfish</groupId>
+        <artifactId>javax.faces</artifactId>
+        <version>2.2.11</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.weld.servlet</groupId>
+        <artifactId>weld-servlet</artifactId>
+        <version>2.1.2.Final</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
