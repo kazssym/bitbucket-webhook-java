@@ -152,7 +152,6 @@
   <modules>
     <module>servlet</module>
     <module>webapp</module>
-    <module>webapp-servlet</module>
   </modules>
   <dependencies>
     <dependency>
