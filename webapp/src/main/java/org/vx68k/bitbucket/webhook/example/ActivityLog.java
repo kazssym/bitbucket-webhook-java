@@ -1,5 +1,5 @@
 /*
- * LoggingObserver
+ * ActivityLog
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -21,6 +21,7 @@ package org.vx68k.bitbucket.webhook.example;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.inject.Named;
 import org.vx68k.bitbucket.webhook.BitbucketRepositoryPush;
 import org.vx68k.bitbucket.webhook.BitbucketUser;
 
@@ -31,13 +32,22 @@ import org.vx68k.bitbucket.webhook.BitbucketUser;
  * @since 1.0
  */
 @ApplicationScoped
-public class LoggingObserver {
+@Named("activityLog")
+public class ActivityLog {
 
     private final Logger logger = Logger.getLogger(getClass().getName());
 
-    public void commitNotified(@Observes BitbucketRepositoryPush push) {
+    private BitbucketRepositoryPush lastRepositoryPush = null;
+
+    public void handleRepositoryPush(@Observes BitbucketRepositoryPush push) {
         BitbucketUser actor = push.getActor();
         logger.info(actor.getUsername() + " pushed");
         logger.fine(push.getJsonObject().toString());
+
+        lastRepositoryPush = push;
+    }
+
+    public BitbucketRepositoryPush getLastRepositoryPush() {
+        return lastRepositoryPush;
     }
 }
