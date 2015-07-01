@@ -61,6 +61,11 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.6</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-war-plugin</artifactId>
           <version>2.6</version>
         </plugin>
@@ -152,6 +157,7 @@
   <modules>
     <module>servlet</module>
     <module>webapp</module>
+    <module>webapp-standalone</module>
   </modules>
   <dependencies>
     <dependency>
@@ -179,11 +185,13 @@
         <groupId>org.glassfish</groupId>
         <artifactId>javax.faces</artifactId>
         <version>2.2.11</version>
+        <scope>runtime</scope>
       </dependency>
       <dependency>
-        <groupId>org.jboss.weld.servlet</groupId>
-        <artifactId>weld-servlet</artifactId>
+        <groupId>org.jboss.weld</groupId>
+        <artifactId>weld-core</artifactId>
         <version>2.1.2.Final</version>
+        <scope>runtime</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
