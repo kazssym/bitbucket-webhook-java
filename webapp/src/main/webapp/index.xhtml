@@ -34,6 +34,11 @@
     <rich:toolbar id="topToolbar">
       <span id="title">Bitbucket Webhook Example</span>
     </rich:toolbar>
+    <div>
+      The last repository push is
+      <h:outputText rendered="${empty activityLog.lastRepositoryPush}" value="nothing after deployment."/>
+      <h:outputText rendered="${not empty activityLog.lastRepositoryPush}" value="${activityLog.lastRepositoryPush.pushJsonObject}."/>
+    </div>
   </h:body>
 </html>
 
