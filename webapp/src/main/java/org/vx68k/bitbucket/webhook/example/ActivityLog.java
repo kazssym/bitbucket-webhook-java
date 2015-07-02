@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Named;
-import org.vx68k.bitbucket.webhook.BitbucketRepositoryPush;
+import org.vx68k.bitbucket.webhook.RepositoryPush;
 import org.vx68k.bitbucket.webhook.BitbucketUser;
 
 /**
@@ -37,9 +37,9 @@ public class ActivityLog {
 
     private final Logger logger = Logger.getLogger(getClass().getName());
 
-    private BitbucketRepositoryPush lastRepositoryPush = null;
+    private RepositoryPush lastRepositoryPush = null;
 
-    public void handleRepositoryPush(@Observes BitbucketRepositoryPush push) {
+    public void handleRepositoryPush(@Observes RepositoryPush push) {
         BitbucketUser actor = push.getActor();
         logger.info(actor.getUsername() + " pushed");
         logger.fine(push.getJsonObject().toString());
@@ -47,7 +47,7 @@ public class ActivityLog {
         lastRepositoryPush = push;
     }
 
-    public BitbucketRepositoryPush getLastRepositoryPush() {
+    public RepositoryPush getLastRepositoryPush() {
         return lastRepositoryPush;
     }
 }

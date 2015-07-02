@@ -1,5 +1,5 @@
 /*
- * BitbucketRepositoryPush - represents a push to a Bitbucket repository
+ * RepositoryPush - represents a push to a Bitbucket repository
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -26,7 +26,7 @@ import javax.json.JsonObject;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class BitbucketRepositoryPush extends BitbucketActivity {
+public class RepositoryPush extends Activity {
 
     /**
      * JSON key for the push object.
@@ -40,7 +40,7 @@ public class BitbucketRepositoryPush extends BitbucketActivity {
      *
      * @param jsonObject JSON object
      */
-    public BitbucketRepositoryPush(JsonObject jsonObject) {
+    public RepositoryPush(JsonObject jsonObject) {
         super(jsonObject);
 
         pushJsonObject = jsonObject.getJsonObject(PUSH_KEY);

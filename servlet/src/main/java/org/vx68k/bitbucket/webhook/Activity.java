@@ -1,5 +1,5 @@
 /*
- * BitbucketActivity - represents an activity on a Bitbucket repository
+ * Activity - represents an activity on a Bitbucket repository
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -26,14 +26,14 @@ import javax.json.JsonObject;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public abstract class BitbucketActivity {
+public abstract class Activity {
 
     protected static final String ACTOR_KEY = "actor";
 
     private final JsonObject jsonObject;
     private final BitbucketUser actor;
 
-    public BitbucketActivity(JsonObject jsonObject) {
+    protected Activity(JsonObject jsonObject) {
         this.jsonObject = jsonObject;
 
         JsonObject actorObject = jsonObject.getJsonObject(ACTOR_KEY);

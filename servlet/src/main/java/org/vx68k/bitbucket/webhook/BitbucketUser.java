@@ -123,7 +123,7 @@ public class BitbucketUser {
         BitbucketUser user = new BitbucketUser();
         user.setUsername(object.getString("username"));
         user.setDisplayName(object.getString("display_name"));
-        user.setUuid(BitbucketUtilities.parseUuid(object.getString("uuid")));
+        user.setUuid(WebhookUtilities.parseUuid(object.getString("uuid")));
         // TODO: Parse links.
         return user;
     }

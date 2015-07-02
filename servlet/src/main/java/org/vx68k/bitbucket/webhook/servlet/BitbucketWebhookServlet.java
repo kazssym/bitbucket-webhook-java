@@ -31,7 +31,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.vx68k.bitbucket.webhook.BitbucketRepositoryPush;
+import org.vx68k.bitbucket.webhook.RepositoryPush;
 
 /**
  * Handles HTTP requests from Bitbucket webhooks.
@@ -48,7 +48,7 @@ public class BitbucketWebhookServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private Event<BitbucketRepositoryPush> repositoryPushEvent;
+    private Event<RepositoryPush> repositoryPushEvent;
 
     @Override
     protected void doPost(HttpServletRequest request,
@@ -75,8 +75,8 @@ public class BitbucketWebhookServlet extends HttpServlet {
     }
 
     protected void dispatch(JsonObject object) {
-        if (object.containsKey(BitbucketRepositoryPush.PUSH_KEY)) {
-            repositoryPushEvent.fire(new BitbucketRepositoryPush(object));
+        if (object.containsKey(RepositoryPush.PUSH_KEY)) {
+            repositoryPushEvent.fire(new RepositoryPush(object));
         } else {
             log("Unhandled JSON: " + object.toString());
         }

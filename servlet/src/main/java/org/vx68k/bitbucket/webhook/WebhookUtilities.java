@@ -1,5 +1,5 @@
 /*
- + BitbucketUtilities - utility methods for Bitbucket Webhook Servlet
+ + WebhookUtilities - utility methods for Bitbucket Webhook Servlet
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -26,7 +26,7 @@ import java.util.UUID;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class BitbucketUtilities {
+public class WebhookUtilities {
 
     /**
      * Parses a string into a UUID.
