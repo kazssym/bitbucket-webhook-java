@@ -39,10 +39,7 @@ import org.vx68k.bitbucket.webhook.RepositoryPush;
  * @author Kaz Nishimura
  * @since 1.0
  */
-@WebServlet(
-        name = "Bitbucket Webhook Servlet",
-        // URL pattern "/notify" is retained for backward compatibility.
-        urlPatterns = {"/webhook", "/notify"})
+@WebServlet(name = "Bitbucket Webhook Servlet", urlPatterns = {"/webhook"})
 public class BitbucketWebhookServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
