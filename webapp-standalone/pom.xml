@@ -88,19 +88,41 @@
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-annotations</artifactId>
       <version>${jetty.version}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>apache-jsp</artifactId>
       <version>${jetty.version}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish</groupId>
       <artifactId>javax.faces</artifactId>
+      <version>2.2.11</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-core</artifactId>
+      <artifactId>weld-core-impl</artifactId>
+      <version>${weld.version}</version>
+      <scope>runtime</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jboss.spec.javax.annotation</groupId>
+          <artifactId>jboss-annotations-api_1.2_spec</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jboss.spec.javax.el</groupId>
+          <artifactId>jboss-el-api_3.0_spec</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.weld</groupId>
+      <artifactId>weld-core-jsf</artifactId>
+      <version>${weld.version}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -111,5 +133,6 @@
   </dependencies>
   <properties>
     <jetty.version>9.2.11.v20150529</jetty.version>
+    <weld.version>2.1.2.Final</weld.version>
   </properties>
 </project>
