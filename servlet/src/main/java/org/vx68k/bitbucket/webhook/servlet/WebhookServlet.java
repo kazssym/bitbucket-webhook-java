@@ -1,5 +1,5 @@
 /*
- * BitbucketWebhookServlet - handles HTTP requests from Bitbucket webhooks
+ * WebhookServlet - handles HTTP requests from Bitbucket webhooks
  * Copyright (C) 2014-2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -40,7 +40,7 @@ import org.vx68k.bitbucket.webhook.RepositoryPush;
  * @since 1.0
  */
 @WebServlet(name = "Bitbucket Webhook Servlet", urlPatterns = {"/webhook"})
-public class BitbucketWebhookServlet extends HttpServlet {
+public class WebhookServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 

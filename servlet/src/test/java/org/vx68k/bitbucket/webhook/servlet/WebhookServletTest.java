@@ -32,12 +32,12 @@ import org.vx68k.bitbucket.webhook.servlet.stub.StubHttpServletResponse;
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for {@link BitbucketWebhookServlet}.
+ * Unit tests for {@link WebhookServlet}.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class BitbucketWebhookServletTest implements ServletConfig {
+public class WebhookServletTest implements ServletConfig {
 
     @Before
     public void setUp() {
@@ -49,14 +49,14 @@ public class BitbucketWebhookServletTest implements ServletConfig {
 
     @Test
     public void testLifecycle() throws ServletException {
-        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet();
+        WebhookServlet servlet = new WebhookServlet();
         servlet.init(this);
         servlet.destroy();
     }
 
     @Test
     public void testGet() throws ServletException, IOException {
-        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet();
+        WebhookServlet servlet = new WebhookServlet();
         servlet.init(this);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest();
@@ -72,7 +72,7 @@ public class BitbucketWebhookServletTest implements ServletConfig {
 
     @Test
     public void testHead() throws ServletException, IOException {
-        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet();
+        WebhookServlet servlet = new WebhookServlet();
         servlet.init(this);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest();
