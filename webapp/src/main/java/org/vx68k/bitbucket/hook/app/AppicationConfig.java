@@ -21,7 +21,7 @@ package org.vx68k.bitbucket.hook.app;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.vx68k.bitbucket.api.util.Credentials;
+import org.vx68k.bitbucket.api.client.Credentials;
 
 /**
  * Application configuration.
