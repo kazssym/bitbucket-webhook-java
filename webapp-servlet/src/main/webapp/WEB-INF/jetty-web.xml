@@ -21,8 +21,14 @@
   <Get name="securityHandler">
     <Set name="loginService">
       <New class="org.eclipse.jetty.security.HashLoginService">
-        <Set name="name">Nobody May Login</Set>
+        <Arg>Nobody May Login</Arg>
       </New>
     </Set>
   </Get>
+  <!-- Weld initialization. -->
+  <Call name="addEventListener">
+    <Arg>
+      <New class="org.jboss.weld.environment.servlet.Listener"/>
+    </Arg>
+  </Call>
 </Configure>
