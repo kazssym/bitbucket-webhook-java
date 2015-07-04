@@ -157,6 +157,7 @@
   <modules>
     <module>servlet</module>
     <module>webapp</module>
+    <module>webapp-servlet</module>
     <module>webapp-standalone</module>
   </modules>
   <dependencies>
