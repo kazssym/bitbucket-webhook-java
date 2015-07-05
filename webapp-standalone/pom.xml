@@ -25,7 +25,38 @@
   <artifactId>bitbucket-webhook-example-standalone</artifactId>
   <name>Bitbucket Webhook Example Standalone Server</name>
   <build>
+    <resources>
+      <resource>
+        <filtering>true</filtering>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-licenses</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+              <resources>
+                <resource>
+                  <targetPath>META-INF</targetPath>
+                  <directory>..</directory>
+                  <includes>
+                    <include>COPYING</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -39,16 +70,25 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.10</version>
         <executions>
           <execution>
-            <id>include-webapp</id>
-            <phase>prepare-package</phase>
+            <id>unpack-webapp</id>
+            <phase>process-resources</phase>
             <goals>
-              <goal>exploded</goal>
+              <goal>unpack</goal>
             </goals>
             <configuration>
-              <webappDirectory>${project.build.outputDirectory}/META-INF/webapp</webappDirectory>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>bitbucket-webhook-example-servlet</artifactId>
+                  <version>${project.version}</version>
+                  <type>war</type>
+                </artifactItem>
+              </artifactItems>
+              <outputDirectory>${project.build.outputDirectory}/META-INF/webapp</outputDirectory>
             </configuration>
           </execution>
         </executions>
@@ -59,7 +99,7 @@
         <version>2.4</version>
         <executions>
           <execution>
-            <id>shade</id>
+            <id>shade-classes</id>
             <goals>
               <goal>shade</goal>
             </goals>
@@ -67,13 +107,6 @@
         </executions>
         <configuration>
           <createDependencyReducedPom>false</createDependencyReducedPom>
-          <keepDependenciesWithProvidedScope>true</keepDependenciesWithProvidedScope>
-          <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
-          <artifactSet>
-            <excludes>
-              <exclude>*:bitbucket-webhook-example</exclude>
-            </excludes>
-          </artifactSet>
         </configuration>
       </plugin>
     </plugins>
@@ -82,6 +115,11 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-webapp</artifactId>
+      <version>${jetty.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-deploy</artifactId>
       <version>${jetty.version}</version>
     </dependency>
     <dependency>
@@ -96,43 +134,8 @@
       <version>${jetty.version}</version>
       <scope>runtime</scope>
     </dependency>
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.faces</artifactId>
-      <version>2.2.11</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-core-impl</artifactId>
-      <version>${weld.version}</version>
-      <scope>runtime</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jboss.spec.javax.annotation</groupId>
-          <artifactId>jboss-annotations-api_1.2_spec</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.jboss.spec.javax.el</groupId>
-          <artifactId>jboss-el-api_3.0_spec</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-core-jsf</artifactId>
-      <version>${weld.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>bitbucket-webhook-example</artifactId>
-      <version>${project.version}</version>
-      <type>war</type>
-    </dependency>
   </dependencies>
   <properties>
     <jetty.version>9.2.11.v20150529</jetty.version>
-    <weld.version>2.1.2.Final</weld.version>
   </properties>
 </project>
