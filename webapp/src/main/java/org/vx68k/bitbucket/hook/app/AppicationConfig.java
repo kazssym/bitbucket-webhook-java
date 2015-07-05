@@ -19,7 +19,6 @@
 package org.vx68k.bitbucket.hook.app;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import org.vx68k.bitbucket.api.client.Credentials;
 
@@ -33,8 +32,7 @@ import org.vx68k.bitbucket.api.client.Credentials;
 @Named
 public class AppicationConfig {
 
-    @Inject
-    private Credentials clientCredentials;
+    private final Credentials clientCredentials = new Credentials();
 
     public Credentials getClientCredentials() {
         return clientCredentials;
