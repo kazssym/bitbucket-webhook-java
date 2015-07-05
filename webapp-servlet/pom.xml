@@ -26,16 +26,24 @@
   <packaging>war</packaging>
   <name>Bitbucket Webhook Example for Java Servlet containers</name>
   <dependencies>
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.faces</artifactId>
-      <version>2.2.11</version>
-      <scope>runtime</scope>
-    </dependency>
+    <!-- Weld optionally uses annotations in javax.ejb. -->
     <dependency>
       <groupId>javax.ejb</groupId>
       <artifactId>javax.ejb-api</artifactId>
       <version>3.2</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- RichFaces optionally uses annotations in javax.validation. -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>1.1.0.Final</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.faces</artifactId>
+      <version>2.2.11</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
