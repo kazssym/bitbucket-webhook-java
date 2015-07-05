@@ -16,19 +16,33 @@
   You should have received a copy of the GNU Affero General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+<!--
+  The followings must be excluded from the server classes for Weld to work.
+   * org.eclipse.jetty.server.handler.ContextHandler
+   * org.eclipse.jetty.servlet.ServletContextHandler
+   * org.eclipse.jetty.servlet.ServletHandler
+
+  Note any calls to addServerClass and prependServerClass in this file will
+  not take effect.
+-->
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
-<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+<Configure id="context" class="org.eclipse.jetty.webapp.WebAppContext">
   <Get name="securityHandler">
     <Set name="loginService">
-      <New class="org.eclipse.jetty.security.HashLoginService">
-        <Arg>Nobody May Login</Arg>
-      </New>
+      <New class="org.eclipse.jetty.security.HashLoginService"/>
     </Set>
   </Get>
-  <!-- Weld initialization. -->
-  <Call name="addEventListener">
+  <New class="org.eclipse.jetty.plus.jndi.Resource">
     <Arg>
-      <New class="org.jboss.weld.environment.servlet.Listener"/>
+      <Ref refid="context"/>
     </Arg>
-  </Call>
+    <Arg>BeanManager</Arg>
+    <Arg>
+      <New class="javax.naming.Reference">
+        <Arg>javax.enterprise.inject.spi.BeanManager</Arg>
+        <Arg>org.jboss.weld.resources.ManagerObjectFactory</Arg>
+        <Arg/>
+      </New>
+    </Arg>
+  </New>
 </Configure>

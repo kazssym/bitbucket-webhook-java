@@ -59,6 +59,6 @@
     </dependency>
   </dependencies>
   <properties>
-    <weld.version>2.1.2.Final</weld.version>
+    <weld.version>2.2.14.Final</weld.version>
   </properties>
 </project>
