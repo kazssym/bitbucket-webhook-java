@@ -18,8 +18,10 @@
 
 package org.vx68k.bitbucket.webhook.example.jetty;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.Properties;
 import org.eclipse.jetty.deploy.App;
@@ -28,6 +30,7 @@ import org.eclipse.jetty.deploy.DeploymentManager;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.util.RolloverFileOutputStream;
 import org.eclipse.jetty.util.component.AbstractLifeCycle;
 import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -48,6 +51,8 @@ public class JettyWebApp extends AbstractLifeCycle implements AppProvider {
             = "org.vx68k.bitbucket.webhook.example.httpPort";
 
     private static final int DEFAULT_HTTP_PORT = 8080;
+
+    private static final String SERVER_LOG = "server_yyyy_mm_dd.log";
 
     private static final String SERVER_PROPERTIES
             = "META-INF/server.properties";
@@ -74,6 +79,23 @@ public class JettyWebApp extends AbstractLifeCycle implements AppProvider {
         }
 
         Server server = new Server(httpPort);
+
+        // Setting up logs.
+        String logDirectory = System.getProperty("jetty.logs");
+        if (logDirectory != null) {
+            if (!logDirectory.endsWith(File.separator)) {
+                if (logDirectory.endsWith("/")) {
+                    logDirectory = logDirectory.substring(
+                            0, logDirectory.length() - 1);
+                }
+                logDirectory = logDirectory + File.separator;
+            }
+
+            String serverLog = logDirectory + SERVER_LOG;
+            RolloverFileOutputStream serverLogStream
+                    = new RolloverFileOutputStream(serverLog, true, 14);
+            System.setErr(new PrintStream(serverLogStream, true));
+        }
 
         // Setting up for jetty-annotations.
         Configuration.ClassList classes
