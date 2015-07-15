@@ -20,6 +20,7 @@ package org.vx68k.bitbucket.webhook.example;
 
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -34,10 +35,28 @@ public class WebAppUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private WebAppConfig config;
+
     private boolean authenticated = false;
+
+    public WebAppUser() {
+    }
+
+    public WebAppUser(WebAppConfig config) {
+        this.config = config;
+    }
+
+    public WebAppConfig getConfig() {
+        return config;
+    }
 
     public boolean isAuthenticated() {
         return authenticated;
+    }
+
+    @Inject
+    public void setConfig(WebAppConfig config) {
+        this.config = config;
     }
 
     public String login() {
