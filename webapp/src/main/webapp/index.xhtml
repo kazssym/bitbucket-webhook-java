@@ -34,7 +34,7 @@
     <h:form>
       <rich:toolbar id="topToolbar">
         <span id="title">Bitbucket Webhook Example</span>
-        <rich:toolbarGroup location="right">
+        <rich:toolbarGroup rendered="${not config.anonymous}" location="right">
           <h:commandButton rendered="${not user.authenticated}" value="Login" action="#{user.login}"/>
         </rich:toolbarGroup>
       </rich:toolbar>
