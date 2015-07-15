@@ -18,10 +18,16 @@
 
 package org.vx68k.bitbucket.webhook.example;
 
+import java.io.IOException;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
+import com.google.api.client.auth.oauth2.AuthorizationRequestUrl;
 
 /**
  * User of this web application.
@@ -59,7 +65,21 @@ public class WebAppUser implements Serializable {
         this.config = config;
     }
 
-    public String login() {
-        return "unimplemented";
+    public String login() throws IOException {
+        AuthorizationCodeFlow flow
+                = config.getBitbucketClient().getAuthorizationCodeFlow();
+        if (flow == null) {
+            throw new IllegalStateException("No client credentials");
+        }
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        HttpSession session = (HttpSession) externalContext.getSession(true);
+
+        AuthorizationRequestUrl requestUrl = flow.newAuthorizationUrl();
+        requestUrl.setState(session.getId());
+        externalContext.redirect(requestUrl.build());
+
+        return null;
     }
 }
