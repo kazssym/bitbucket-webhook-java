@@ -57,6 +57,10 @@ public class WebAppConfig implements Serializable {
         return bitbucketClient;
     }
 
+    public boolean isAnonymous() {
+        return bitbucketClient.getCredentials().isEmpty();
+    }
+
     private void initializeClientCredentials() {
         Credentials clientCredentials = bitbucketClient.getCredentials();
         clientCredentials.setID(System.getProperty(
