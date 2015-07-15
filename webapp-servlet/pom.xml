@@ -59,6 +59,12 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
+      <groupId>org.jboss</groupId>
+      <artifactId>jandex</artifactId>
+      <version>1.2.4.Final</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>bitbucket-webhook-example</artifactId>
       <version>${project.version}</version>
