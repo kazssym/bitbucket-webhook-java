@@ -22,7 +22,7 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.vx68k.bitbucket.api.client.Client;
+import org.vx68k.bitbucket.api.client.BitbucketClient;
 import org.vx68k.bitbucket.api.client.Credentials;
 
 /**
@@ -42,18 +42,18 @@ public class WebAppConfig implements Serializable {
     private static final String BITBUCKET_CLIENT_SECRET_PROPERTY_NAME
             = "org.vx68k.bitbucket.webhook.example.clientSecret";
 
-    private final Client bitbucketClient;
+    private final BitbucketClient bitbucketClient;
 
     public WebAppConfig() {
-        this(new Client());
+        this(new BitbucketClient());
     }
 
-    public WebAppConfig(Client bitbucketClient) {
+    public WebAppConfig(BitbucketClient bitbucketClient) {
         this.bitbucketClient = bitbucketClient;
         initializeClientCredentials();
     }
 
-    public Client getBitbucketClient() {
+    public BitbucketClient getBitbucketClient() {
         return bitbucketClient;
     }
 

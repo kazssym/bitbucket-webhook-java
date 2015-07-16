@@ -28,6 +28,8 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.AuthorizationRequestUrl;
+import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
  * User of this web application.
@@ -66,8 +68,11 @@ public class WebAppUser implements Serializable {
     }
 
     public String login() throws IOException {
+        BitbucketClient bitbucketClient = config.getBitbucketClient();
+        ClientParametersAuthentication authentication
+                = bitbucketClient.getClientParametersAuthentication();
         AuthorizationCodeFlow flow
-                = config.getBitbucketClient().getAuthorizationCodeFlow();
+                = bitbucketClient.getAuthorizationCodeFlow(authentication);
         if (flow == null) {
             throw new IllegalStateException("No client credentials");
         }
