@@ -20,6 +20,8 @@ package org.vx68k.bitbucket.webhook.example;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.UnknownServiceException;
+import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -27,7 +29,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
+import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.AuthorizationRequestUrl;
+import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.HttpExecuteInterceptor;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
@@ -45,7 +49,11 @@ public class WebAppUser implements Serializable {
 
     private WebAppConfig config;
 
-    private boolean authenticated = false;
+    private String accessToken;
+
+    private Date expiration;
+
+    private String refreshToken;
 
     public WebAppUser() {
     }
@@ -59,7 +67,10 @@ public class WebAppUser implements Serializable {
     }
 
     public boolean isAuthenticated() {
-        return authenticated;
+        if (accessToken == null) {
+            return false;
+        }
+        return expiration == null || !expiration.before(new Date());
     }
 
     @Inject
@@ -86,5 +97,32 @@ public class WebAppUser implements Serializable {
         externalContext.redirect(requestUrl.build());
 
         return null;
+    }
+
+    public void requestToken(String authorizationCode) throws IOException {
+        BitbucketClient bitbucketClient = config.getBitbucketClient();
+        HttpExecuteInterceptor authentication
+                = bitbucketClient.getBasicAuthentication();
+        AuthorizationCodeFlow flow
+                = bitbucketClient.getAuthorizationCodeFlow(authentication);
+        if (flow == null) {
+            throw new IllegalStateException("No client credentials");
+        }
+
+        AuthorizationCodeTokenRequest tokenRequest
+                = flow.newTokenRequest(authorizationCode);
+        TokenResponse tokenResponse = tokenRequest.execute();
+        if (!tokenResponse.getTokenType().equals("bearer")) {
+            throw new UnknownServiceException("Unsupported token type");
+        }
+        accessToken = tokenResponse.getAccessToken();
+        Long expiresIn = tokenResponse.getExpiresInSeconds();
+        expiration = null;
+        if (expiresIn != null) {
+            expiration = new Date();
+            expiration.setTime(
+                    expiration.getTime() + expiresIn.longValue() * 1000);
+        }
+        refreshToken = tokenResponse.getRefreshToken();
     }
 }
