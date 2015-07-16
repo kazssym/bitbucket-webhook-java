@@ -70,8 +70,9 @@
           <version>2.10.3</version>
           <configuration>
             <links>
-              <link>http://docs.oracle.com/javaee/6/api/</link>
+              <link>http://docs.oracle.com/javaee/6/api</link>
             </links>
+            <detectLinks>true</detectLinks>
             <locale>en_US</locale>
           </configuration>
         </plugin>
