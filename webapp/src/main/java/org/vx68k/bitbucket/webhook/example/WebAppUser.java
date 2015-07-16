@@ -28,7 +28,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.AuthorizationRequestUrl;
-import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.http.HttpExecuteInterceptor;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
@@ -69,8 +69,8 @@ public class WebAppUser implements Serializable {
 
     public String login() throws IOException {
         BitbucketClient bitbucketClient = config.getBitbucketClient();
-        ClientParametersAuthentication authentication
-                = bitbucketClient.getClientParametersAuthentication();
+        HttpExecuteInterceptor authentication
+                = bitbucketClient.getClientParameters();
         AuthorizationCodeFlow flow
                 = bitbucketClient.getAuthorizationCodeFlow(authentication);
         if (flow == null) {
