@@ -45,7 +45,7 @@
     <connection>scm:hg:https://bitbucket.org/kazssym/bitbucket-webhook-servlet</connection>
     <developerConnection>scm:hg:https://bitbucket.org/kazssym/bitbucket-webhook-servlet</developerConnection>
     <tag>default</tag>
-    <url>https://bitbucket.org/kazssym/bitbucket-webhook-servlet/src</url>eb
+    <url>https://bitbucket.org/kazssym/bitbucket-webhook-servlet/src</url>
   </scm>
   <organization>
     <name>Nishimura Software Studio</name>
