@@ -26,7 +26,7 @@
   <packaging>jar</packaging>
   <name>Bitbucket Webhook Servlet</name>
   <description>Servlet to handle Bitbucket POST notifications</description>
-  <url>http://kazssym.kazssym.bitbucket.org/bitbucket-webhook-servlet/</url>
+  <url>http://kazssym.bitbucket.org/bitbucket-webhook-servlet/</url>
   <build>
     <plugins>
       <plugin>
