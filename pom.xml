@@ -22,11 +22,10 @@
   <packaging>pom</packaging>
   <name>Bitbucket Webhook Servlet Parent</name>
   <version>1.0-SNAPSHOT</version>
-  <description>Parent project for Bitbucket Hook Servlet</description>
-  <url>http://bitbucket.org/kazssym/bitbucket-hook-servlet</url>
+  <description>Parent project for Bitbucket Webhook Servlet</description>
   <issueManagement>
     <system>Bitbucket</system>
-    <url>https://bitbucket.org/kazssym/bitbucket-hook-servlet/issues</url>
+    <url>https://bitbucket.org/kazssym/bitbucket-webhook-servlet/issues</url>
   </issueManagement>
   <inceptionYear>2014</inceptionYear>
   <developers>
@@ -43,10 +42,10 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:hg:https://bitbucket.org/kazssym/bitbucket-hook-servlet</connection>
-    <developerConnection>scm:hg:https://bitbucket.org/kazssym/bitbucket-hook-servlet</developerConnection>
+    <connection>scm:hg:https://bitbucket.org/kazssym/bitbucket-webhook-servlet</connection>
+    <developerConnection>scm:hg:https://bitbucket.org/kazssym/bitbucket-webhook-servlet</developerConnection>
     <tag>default</tag>
-    <url>https://bitbucket.org/kazssym/bitbucket-hook-servlet/src</url>
+    <url>https://bitbucket.org/kazssym/bitbucket-webhook-servlet/src</url>eb
   </scm>
   <organization>
     <name>Nishimura Software Studio</name>
