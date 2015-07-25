@@ -16,3 +16,16 @@ option) any later version.
 [Free software]: <http://www.gnu.org/philosophy/free-sw.html> "What is free software?"
 [GNU Affero General Public License]: <http://www.gnu.org/licenses/agpl.html>
 [Free Software Foundation]: <http://www.fsf.org/>
+
+## Modules
+
+The parent Maven project consists of the following modules:
+
+ * servlet &#x2013; main servlet implementation,
+ * webapp &#x2013; example Java EE web application that uses the servlet,
+ * webapp-servlet &#x2013; the same web application for Servlet-only
+   containers, and
+ * webapp-standalone &#x2013; the same web application packaged as an
+   executable jar file with [Jetty][].
+
+[Jetty]: <https://www.eclipse.org/jetty/>
