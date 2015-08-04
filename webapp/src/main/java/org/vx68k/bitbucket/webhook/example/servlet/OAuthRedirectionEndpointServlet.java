@@ -35,7 +35,7 @@ import org.vx68k.bitbucket.webhook.example.WebAppUser;
  */
 @WebServlet(
         name = "OAuth Redirection Endpoint Servlet",
-        urlPatterns = {"/authorized"})
+        urlPatterns = {"/authorized/*"})
 public class OAuthRedirectionEndpointServlet extends HttpServlet {
 
     private WebAppUser user;
