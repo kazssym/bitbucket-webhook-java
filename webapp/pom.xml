@@ -25,6 +25,7 @@
   <artifactId>bitbucket-webhook-example</artifactId>
   <packaging>war</packaging>
   <name>Bitbucket Webhook Example</name>
+  <description>Example Java EE web application for the Bitbucket Webhook Servlet.</description>
   <build>
     <plugins>
       <plugin>

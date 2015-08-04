@@ -23,9 +23,8 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>bitbucket-webhook-servlet</artifactId>
-  <packaging>jar</packaging>
   <name>Bitbucket Webhook Servlet</name>
-  <description>Servlet to handle Bitbucket POST notifications</description>
+  <description>Servlet to handle Bitbucket POST notifications.</description>
   <url>http://kazssym.bitbucket.org/bitbucket-webhook-servlet/</url>
   <build>
     <plugins>
@@ -87,4 +86,7 @@
       <version>1.0</version>
     </dependency>
   </dependencies>
+  <properties>
+    <stylesheetfile>${basedir}/../src/main/javadoc/stylesheet.css</stylesheetfile>
+  </properties>
 </project>
