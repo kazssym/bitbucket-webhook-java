@@ -24,7 +24,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>bitbucket-webhook-example-standalone</artifactId>
   <name>Bitbucket Webhook Example Standalone Server</name>
-  <description>Example Java EE web application for the Bitbucket Webhook Servlet packaged as an executable jar file.</description>
+  <description>Example Java EE web application packaged as an executable jar file that uses the Bitbucket Webhook Servlet.</description>
   <build>
     <resources>
       <resource>
