@@ -32,7 +32,7 @@ import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.AuthorizationRequestUrl;
 import com.google.api.client.auth.oauth2.TokenResponse;
-import org.vx68k.bitbucket.api.client.BitbucketClient;
+import org.vx68k.bitbucket.api.client.Client;
 
 /**
  * User of this web application.
@@ -78,7 +78,7 @@ public class WebAppUser implements Serializable {
     }
 
     public String login() throws IOException {
-        BitbucketClient bitbucketClient = config.getBitbucketClient();
+        Client bitbucketClient = config.getBitbucketClient();
         AuthorizationCodeFlow flow
                 = bitbucketClient.getAuthorizationCodeFlow(false);
         if (flow == null) {
@@ -97,7 +97,7 @@ public class WebAppUser implements Serializable {
     }
 
     public void requestToken(String authorizationCode) throws IOException {
-        BitbucketClient bitbucketClient = config.getBitbucketClient();
+        Client bitbucketClient = config.getBitbucketClient();
         AuthorizationCodeFlow flow
                 = bitbucketClient.getAuthorizationCodeFlow(true);
         if (flow == null) {
