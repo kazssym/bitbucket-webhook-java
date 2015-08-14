@@ -86,7 +86,4 @@
       <version>1.0</version>
     </dependency>
   </dependencies>
-  <properties>
-    <stylesheetfile>${basedir}/../src/main/javadoc/stylesheet.css</stylesheetfile>
-  </properties>
 </project>
