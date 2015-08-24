@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  pom.xml for bitbucket-webhook-servlet-parent
+  pom.xml for bitbucket-webhook-parent
   Copyright (C) 2014-2015 Nishimura Software Studio
 
   This program is free software: you can redistribute it and/or modify it
@@ -18,14 +18,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.vx68k.bitbucket</groupId>
-  <artifactId>bitbucket-webhook-servlet-parent</artifactId>
+  <artifactId>bitbucket-webhook-parent</artifactId>
   <packaging>pom</packaging>
-  <name>Bitbucket Webhook Servlet Parent</name>
+  <name>Bitbucket Webhook Library for Java (Parent)</name>
   <version>1.0-SNAPSHOT</version>
-  <description>Parent project for Bitbucket Webhook Servlet</description>
+  <description>Parent project for the Bitbucket Webhook Library</description>
   <issueManagement>
     <system>Bitbucket</system>
-    <url>https://bitbucket.org/kazssym/bitbucket-webhook-servlet/issues</url>
+    <url>https://bitbucket.org/kazssym/bitbucket-webhook-java/issues</url>
   </issueManagement>
   <inceptionYear>2014</inceptionYear>
   <developers>
@@ -36,16 +36,16 @@
   </developers>
   <licenses>
     <license>
-      <name>GNU Affero General Public License version 3 or later</name>
+      <name>GNU Affero General Public License v3.0 or later</name>
       <url>http://www.gnu.org/licenses/agpl.html</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
   <scm>
-    <connection>scm:hg:https://bitbucket.org/kazssym/bitbucket-webhook-servlet</connection>
-    <developerConnection>scm:hg:https://bitbucket.org/kazssym/bitbucket-webhook-servlet</developerConnection>
+    <connection>scm:hg:https://bitbucket.org/kazssym/bitbucket-webhook-java</connection>
+    <developerConnection>scm:hg:https://bitbucket.org/kazssym/bitbucket-webhook-java</developerConnection>
     <tag>default</tag>
-    <url>https://bitbucket.org/kazssym/bitbucket-webhook-servlet/src</url>
+    <url>https://bitbucket.org/kazssym/bitbucket-webhook-java/src</url>
   </scm>
   <organization>
     <name>Nishimura Software Studio</name>
@@ -60,6 +60,11 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>2.6</version>
         </plugin>
@@ -69,11 +74,16 @@
           <version>2.10.3</version>
           <configuration>
             <links>
-              <link>http://docs.oracle.com/javaee/6/api</link>
+              <link>http://docs.oracle.com/javaee/6/api/</link>
             </links>
             <detectLinks>true</detectLinks>
             <locale>en_US</locale>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.10</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -155,27 +165,22 @@
     <module>webapp-servlet</module>
     <module>webapp-standalone</module>
   </modules>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>javax</groupId>
-        <artifactId>javaee-web-api</artifactId>
-        <version>6.0</version>
-        <scope>provided</scope>
+        <groupId>javax.json</groupId>
+        <artifactId>javax.json-api</artifactId>
+        <version>1.0</version>
       </dependency>
       <dependency>
         <groupId>org.glassfish</groupId>
         <artifactId>javax.json</artifactId>
         <version>1.0.4</version>
-        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
