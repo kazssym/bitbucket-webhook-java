@@ -24,7 +24,7 @@
       <div>
         The last repository push
         <ui:fragment rendered="#{empty activityLog.lastRepositoryPush}">
-          is not recorded after the last startup.
+          is not recorded after the most recent startup.
         </ui:fragment>
         <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
           was made by ${activityLog.lastRepositoryPush.actor.username} to ${activityLog.lastRepositoryPush.repository.fullName}:<br/>
