@@ -47,7 +47,7 @@
             is not recorded after that last startup.
           </ui:fragment>
           <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
-            was made by ${activityLog.lastRepositoryPush.actor.username}:<br/>
+            was made by ${activityLog.lastRepositoryPush.actor.username} to ${activityLog.lastRepositoryPush.repository.fullName}:<br/>
             ${activityLog.lastRepositoryPush.pushJsonObject}."
           </ui:fragment>
         </div>
