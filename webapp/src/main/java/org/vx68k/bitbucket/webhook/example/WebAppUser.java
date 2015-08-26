@@ -20,19 +20,20 @@ package org.vx68k.bitbucket.webhook.example;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.UnknownServiceException;
-import java.util.Date;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.AuthorizationRequestUrl;
-import com.google.api.client.auth.oauth2.TokenResponse;
 import org.vx68k.bitbucket.api.client.Client;
+import org.vx68k.bitbucket.api.client.Service;
+import org.vx68k.bitbucket.api.client.oauth.OAuthRedirection;
 
 /**
  * User of this web application.
@@ -46,39 +47,35 @@ public class WebAppUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private WebAppConfig config;
+    private WebAppConfig applicationConfig;
 
-    private String accessToken;
-
-    private Date expiration;
-
-    private String refreshToken;
+    private transient Service bitbucketService;
 
     public WebAppUser() {
     }
 
-    public WebAppUser(WebAppConfig config) {
-        this.config = config;
+    public WebAppUser(WebAppConfig applicationConfig) {
+        this.applicationConfig = applicationConfig;
     }
 
-    public WebAppConfig getConfig() {
-        return config;
+    public WebAppConfig getApplicationConfig() {
+        return applicationConfig;
     }
 
     public boolean isAuthenticated() {
-        if (accessToken == null) {
+        if (bitbucketService == null) {
             return false;
         }
-        return expiration == null || !expiration.before(new Date());
+        return bitbucketService.isAuthenticated();
     }
 
     @Inject
-    public void setConfig(WebAppConfig config) {
-        this.config = config;
+    public void setApplicationConfig(WebAppConfig applicationConfig) {
+        this.applicationConfig = applicationConfig;
     }
 
     public String login() throws IOException {
-        Client bitbucketClient = config.getBitbucketClient();
+        Client bitbucketClient = applicationConfig.getBitbucketClient();
         AuthorizationCodeFlow flow
                 = bitbucketClient.getAuthorizationCodeFlow(false);
         if (flow == null) {
@@ -96,28 +93,26 @@ public class WebAppUser implements Serializable {
         return null;
     }
 
-    public void requestToken(String authorizationCode) throws IOException {
-        Client bitbucketClient = config.getBitbucketClient();
-        AuthorizationCodeFlow flow
-                = bitbucketClient.getAuthorizationCodeFlow(true);
-        if (flow == null) {
-            throw new IllegalStateException("No client credentials");
-        }
+    public void requestToken(@Observes OAuthRedirection redirection)
+            throws IOException {
+        HttpServletRequest request = redirection.getRequest();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            String state = request.getParameter("state");
+            if (state != null && state.equals(session.getId())) {
+                // The redirection is for this session.
 
-        AuthorizationCodeTokenRequest tokenRequest
-                = flow.newTokenRequest(authorizationCode);
-        TokenResponse tokenResponse = tokenRequest.execute();
-        if (!tokenResponse.getTokenType().equals("bearer")) {
-            throw new UnknownServiceException("Unsupported token type");
+                String code = request.getParameter("code");
+                if (code != null) {
+                    // The resource access was authorized.
+                    Client bitbucketClient
+                            = applicationConfig.getBitbucketClient();
+                    bitbucketService = bitbucketClient.getService(code);
+
+                    HttpServletResponse response = redirection.getResponse();
+                    response.sendRedirect(request.getContextPath() + "/");
+                }
+            }
         }
-        accessToken = tokenResponse.getAccessToken();
-        Long expiresIn = tokenResponse.getExpiresInSeconds();
-        expiration = null;
-        if (expiresIn != null) {
-            expiration = new Date();
-            expiration.setTime(
-                    expiration.getTime() + expiresIn.longValue() * 1000);
-        }
-        refreshToken = tokenResponse.getRefreshToken();
     }
 }

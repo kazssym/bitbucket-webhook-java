@@ -20,7 +20,6 @@ package org.vx68k.bitbucket.webhook.example;
 
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Credentials;
@@ -58,7 +57,7 @@ public class WebAppConfig implements Serializable {
     }
 
     public boolean isAnonymous() {
-        return bitbucketClient.getCredentials().isEmpty();
+        return bitbucketClient.getCredentials() == null;
     }
 
     private void initializeClientCredentials() {
