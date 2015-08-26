@@ -19,6 +19,7 @@
 package org.vx68k.bitbucket.webhook;
 
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.client.Repository;
 import org.vx68k.bitbucket.api.client.User;
 
 /**
@@ -29,14 +30,26 @@ import org.vx68k.bitbucket.api.client.User;
  */
 public abstract class Activity {
 
+    /**
+     * JSON key for the actor object.
+     */
     protected static final String ACTOR_KEY = "actor";
 
+    /**
+     * JSON key for the repository object.
+     */
+    protected static final String REPOSITORY_KEY = "repository";
+
     private final JsonObject jsonObject;
+
     private final User actor;
+
+    private final Repository repository;
 
     protected Activity(JsonObject json) {
         this.jsonObject = json;
-        actor = new User(json.getJsonObject(ACTOR_KEY));
+        this.actor = new User(json.getJsonObject(ACTOR_KEY));
+        this.repository = new Repository(json.getJsonObject(REPOSITORY_KEY));
     }
 
     /**
@@ -49,11 +62,20 @@ public abstract class Activity {
     }
 
     /**
-     * Returns the actor of this push.
+     * Returns the actor of this object.
      *
-     * @return {@link BitbucketUser} object for the actor
+     * @return actor of this object
      */
     public User getActor() {
         return actor;
+    }
+
+    /**
+     * Returns the repository of this object.
+     *
+     * @return repository of this object
+     */
+    public Repository getRepository() {
+        return repository;
     }
 }
