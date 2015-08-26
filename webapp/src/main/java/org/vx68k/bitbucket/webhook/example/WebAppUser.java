@@ -55,7 +55,7 @@ public class WebAppUser implements Serializable {
     }
 
     public WebAppUser(WebAppConfig applicationConfig) {
-        this.applicationConfig = applicationConfig;
+        setApplicationConfig(applicationConfig);
     }
 
     public WebAppConfig getApplicationConfig() {
