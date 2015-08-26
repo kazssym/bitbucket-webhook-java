@@ -42,9 +42,14 @@
           </rich:toolbarGroup>
         </rich:toolbar>
         <div>
-          The last repository push is
-          <h:outputText rendered="#{empty activityLog.lastRepositoryPush}" value="nothing after deployment."/>
-          <h:outputText rendered="#{not empty activityLog.lastRepositoryPush}" value="${activityLog.lastRepositoryPush.pushJsonObject}."/>
+          The last repository push
+          <ui:fragment rendered="#{empty activityLog.lastRepositoryPush}">
+            is not recorded after that last startup.
+          </ui:fragment>
+          <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
+            was made by ${activityLog.lastRepositoryPush.actor.username}:<br/>
+            ${activityLog.lastRepositoryPush.pushJsonObject}."
+          </ui:fragment>
         </div>
       </h:form>
     </h:body>
