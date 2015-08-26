@@ -1,4 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
 <!--
   index.xhtml for Bibucket Webhook Example Application
   Copyright (C) 2014-2015 Nishimura Software Studio
@@ -11,39 +12,41 @@
   This program is distributed in the hope that it will be useful, but WITHOUT
   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
+  for more details.
 
   You should have received a copy of the GNU Affero General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
-  <h:head>
-    <title>Bitbucket Webhook Example</title>
-    <style>
-      body {
-        margin: 0 0 0 0;
-      }
-      #title {
-        font-family: Verdana, Helvetica, Arial, sans-serif;
-        font-size: 15pt;
-        font-weight: normal;
-      }
-    </style>
-  </h:head>
-  <h:body>
-    <h:form>
-      <rich:toolbar id="topToolbar">
-        <span id="title">Bitbucket Webhook Example</span>
-        <rich:toolbarGroup rendered="${not config.anonymous}" location="right">
-          <h:commandButton rendered="${not user.authenticated}" value="Login" action="#{user.login}"/>
-        </rich:toolbarGroup>
-      </rich:toolbar>
-      <div>
-        The last repository push is
-        <h:outputText rendered="${empty activityLog.lastRepositoryPush}" value="nothing after deployment."/>
-        <h:outputText rendered="${not empty activityLog.lastRepositoryPush}" value="${activityLog.lastRepositoryPush.pushJsonObject}."/>
-      </div>
-    </h:form>
-  </h:body>
+  <f:view>
+    <h:head>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <title>Bitbucket Webhook Example</title>
+      <style>
+        body {
+          margin: 0 0 0 0;
+        }
+        #title {
+          font-family: Verdana, Helvetica, Arial, sans-serif;
+          font-size: 15pt;
+          font-weight: normal;
+        }
+      </style>
+    </h:head>
+    <h:body>
+      <h:form>
+        <rich:toolbar id="topToolbar">
+          <span id="title">Bitbucket Webhook Example</span>
+          <rich:toolbarGroup rendered="#{not empty config.bitbucketClient.credentials}" location="right">
+            <h:commandButton rendered="#{not user.authenticated}" value="Login" action="#{user.login}"/>
+          </rich:toolbarGroup>
+        </rich:toolbar>
+        <div>
+          The last repository push is
+          <h:outputText rendered="#{empty activityLog.lastRepositoryPush}" value="nothing after deployment."/>
+          <h:outputText rendered="#{not empty activityLog.lastRepositoryPush}" value="${activityLog.lastRepositoryPush.pushJsonObject}."/>
+        </div>
+      </h:form>
+    </h:body>
+  </f:view>
 </html>
-
