@@ -1,5 +1,5 @@
 /*
- * WebAppUser
+ * SessionUser
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -43,22 +43,22 @@ import org.vx68k.bitbucket.api.client.oauth.OAuthRedirection;
  */
 @SessionScoped
 @Named("user")
-public class WebAppUser implements Serializable {
+public class SessionUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private WebAppConfig applicationConfig;
+    private ApplicationConfig applicationConfig;
 
     private transient Service bitbucketService;
 
-    public WebAppUser() {
+    public SessionUser() {
     }
 
-    public WebAppUser(WebAppConfig applicationConfig) {
+    public SessionUser(ApplicationConfig applicationConfig) {
         setApplicationConfig(applicationConfig);
     }
 
-    public WebAppConfig getApplicationConfig() {
+    public ApplicationConfig getApplicationConfig() {
         return applicationConfig;
     }
 
@@ -70,7 +70,7 @@ public class WebAppUser implements Serializable {
     }
 
     @Inject
-    public void setApplicationConfig(WebAppConfig applicationConfig) {
+    public void setApplicationConfig(ApplicationConfig applicationConfig) {
         this.applicationConfig = applicationConfig;
     }
 

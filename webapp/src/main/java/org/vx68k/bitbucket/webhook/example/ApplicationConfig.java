@@ -1,5 +1,5 @@
 /*
- * WebAppConfig
+ * ApplicationConfig
  * Copyright (C) 2015 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -32,7 +32,7 @@ import org.vx68k.bitbucket.api.client.Credentials;
  */
 @ApplicationScoped
 @Named("config")
-public class WebAppConfig implements Serializable {
+public class ApplicationConfig implements Serializable {
 
     private static final long SerialVersionUID = 1L;
 
@@ -43,11 +43,11 @@ public class WebAppConfig implements Serializable {
 
     private final Client bitbucketClient;
 
-    public WebAppConfig() {
+    public ApplicationConfig() {
         this(getDefaultBitbucketClient());
     }
 
-    public WebAppConfig(Client bitbucketClient) {
+    public ApplicationConfig(Client bitbucketClient) {
         this.bitbucketClient = bitbucketClient;
     }
 
