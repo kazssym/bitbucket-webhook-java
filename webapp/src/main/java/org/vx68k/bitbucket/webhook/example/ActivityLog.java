@@ -22,8 +22,8 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Named;
+import org.vx68k.bitbucket.api.client.User;
 import org.vx68k.bitbucket.webhook.RepositoryPush;
-import org.vx68k.bitbucket.webhook.BitbucketUser;
 
 /**
  * Logs the JSON object for each push notification.
@@ -40,7 +40,7 @@ public class ActivityLog {
     private RepositoryPush lastRepositoryPush = null;
 
     public void handleRepositoryPush(@Observes RepositoryPush push) {
-        BitbucketUser actor = push.getActor();
+        User actor = push.getActor();
         logger.info(actor.getUsername() + " pushed");
         logger.fine(push.getJsonObject().toString());
 

@@ -19,6 +19,7 @@
 package org.vx68k.bitbucket.webhook;
 
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.client.User;
 
 /**
  * Represents an activity on a Bitbucket repository.
@@ -31,13 +32,11 @@ public abstract class Activity {
     protected static final String ACTOR_KEY = "actor";
 
     private final JsonObject jsonObject;
-    private final BitbucketUser actor;
+    private final User actor;
 
-    protected Activity(JsonObject jsonObject) {
-        this.jsonObject = jsonObject;
-
-        JsonObject actorObject = jsonObject.getJsonObject(ACTOR_KEY);
-        actor = BitbucketUser.fromJsonObject(actorObject);
+    protected Activity(JsonObject json) {
+        this.jsonObject = json;
+        actor = new User(json.getJsonObject(ACTOR_KEY));
     }
 
     /**
@@ -54,7 +53,7 @@ public abstract class Activity {
      *
      * @return {@link BitbucketUser} object for the actor
      */
-    public BitbucketUser getActor() {
+    public User getActor() {
         return actor;
     }
 }
