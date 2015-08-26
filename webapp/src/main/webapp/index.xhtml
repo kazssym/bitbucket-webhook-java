@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html>
 <!--
-  index.xhtml for Bibucket Webhook Example Application
+  index.xhtml - welcome page for bitbucket-webhook-example
   Copyright (C) 2014-2015 Nishimura Software Studio
 
   This program is free software: you can redistribute it and/or modify it
@@ -17,41 +17,20 @@
   You should have received a copy of the GNU Affero General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
-  <f:view>
-    <h:head>
-      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-      <title>Bitbucket Webhook Example</title>
-      <style>
-        body {
-          margin: 0 0 0 0;
-        }
-        #title {
-          font-family: Verdana, Helvetica, Arial, sans-serif;
-          font-size: 15pt;
-          font-weight: normal;
-        }
-      </style>
-    </h:head>
-    <h:body>
-      <h:form>
-        <rich:toolbar id="topToolbar">
-          <span id="title">Bitbucket Webhook Example</span>
-          <rich:toolbarGroup rendered="#{not empty config.bitbucketClient.credentials}" location="right">
-            <h:commandButton rendered="#{not user.authenticated}" value="Login" action="#{user.login}"/>
-          </rich:toolbarGroup>
-        </rich:toolbar>
-        <div>
-          The last repository push
-          <ui:fragment rendered="#{empty activityLog.lastRepositoryPush}">
-            is not recorded after that last startup.
-          </ui:fragment>
-          <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
-            was made by ${activityLog.lastRepositoryPush.actor.username} to ${activityLog.lastRepositoryPush.repository.fullName}:<br/>
-            ${activityLog.lastRepositoryPush.pushJsonObject}."
-          </ui:fragment>
-        </div>
-      </h:form>
-    </h:body>
-  </f:view>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:composition template="templates/example.xhtml">
+    <ui:define name="main">
+      <h1>Last activity</h1>
+      <div>
+        The last repository push
+        <ui:fragment rendered="#{empty activityLog.lastRepositoryPush}">
+          is not recorded after the last startup.
+        </ui:fragment>
+        <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
+          was made by ${activityLog.lastRepositoryPush.actor.username} to ${activityLog.lastRepositoryPush.repository.fullName}:<br/>
+          ${activityLog.lastRepositoryPush.pushJsonObject}.
+        </ui:fragment>
+      </div>
+    </ui:define>
+  </ui:composition>
 </html>
