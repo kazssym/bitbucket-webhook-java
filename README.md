@@ -1,10 +1,11 @@
 # READ ME
 
-This directory contains the source code for the Bitbucket Webhook Servlet.
+This directory contains the source code for the Bitbucket Webhook Library for
+Java.
 
-The Bitbucket Webhook Servlet handles HTTP requests from [Bitbucket][]
-webhooks by notifying other application components of them using [CDI][]
-events.
+The Bitbucket Webhook Servlet Library provides a servlet that handles HTTP
+requests from [Bitbucket][] webhooks by notifying other classes of them using
+[CDI][] events.
 
 This program is *[free software][]*: you can redistribute it and/or modify it
 under the terms of the *[GNU Affero General Public License][]* as published by
@@ -21,7 +22,7 @@ option) any later version.
 
 The parent Maven project consists of the following modules:
 
- * servlet – main servlet implementation,
+ * webhook – core library,
  * webapp – example Java EE web application that uses the servlet,
  * webapp-servlet – the same web application for Servlet-only containers, and
  * webapp-standalone – the same web application packaged as an executable jar
@@ -34,7 +35,7 @@ The parent Maven project consists of the following modules:
 The example Java EE web application can simply run anonymously without any
 configuration, but you can configure the Bitbucket OAuth client credentials by
 Java system properties or by environment variables.
-If you configure the client credentials, a Login button will appear at the
+If you configure the client credentials, a Login item will appear at the
 top-right corner of the main page and users can test logins with their
 Bitbucket accounts.
 
