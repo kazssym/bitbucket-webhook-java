@@ -37,9 +37,9 @@ public class ApplicationConfig implements Serializable {
     private static final long SerialVersionUID = 1L;
 
     private static final String BITBUCKET_CLIENT_ID_PROPERTY_NAME
-            = "org.vx68k.bitbucket.webhook.example.clientID";
+            = "org.vx68k.bitbucket.webhook.example.id";
     private static final String BITBUCKET_CLIENT_SECRET_PROPERTY_NAME
-            = "org.vx68k.bitbucket.webhook.example.clientSecret";
+            = "org.vx68k.bitbucket.webhook.example.secret";
 
     private final Client bitbucketClient;
 
@@ -56,7 +56,7 @@ public class ApplicationConfig implements Serializable {
     }
 
     public static Client getDefaultBitbucketClient() {
-        String clientID = System.getProperty(
+        String clientId = System.getProperty(
                 BITBUCKET_CLIENT_ID_PROPERTY_NAME,
                 System.getenv("BITBUCKET_CLIENT_ID"));
         String clientSecret = System.getProperty(
@@ -64,8 +64,8 @@ public class ApplicationConfig implements Serializable {
                 System.getenv("BITBUCKET_CLIENT_SECRET"));
 
         Client client = new Client();
-        if (clientID != null && clientSecret != null) {
-            client.setCredentials(new Credentials(clientID, clientSecret));
+        if (clientId != null && clientSecret != null) {
+            client.setCredentials(new Credentials(clientId, clientSecret));
         }
         return client;
     }
