@@ -24,6 +24,7 @@
   <name>Bitbucket Webhook Library for Java (Parent)</name>
   <version>1.0-SNAPSHOT</version>
   <description>Parent project for the Bitbucket Webhook Library</description>
+  <url>http://kazssym.bitbucket.org/bitbucket-webhook-java/</url>
   <issueManagement>
     <system>Bitbucket</system>
     <url>https://bitbucket.org/kazssym/bitbucket-webhook-java/issues</url>
