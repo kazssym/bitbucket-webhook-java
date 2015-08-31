@@ -61,4 +61,10 @@
     <description>Nobody.</description>
     <role-name>nobody</role-name>
   </security-role>
+  <resource-ref>
+    <res-ref-name>java:comp/env/jdbc/BitbucketWebhook</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+    <res-sharing-scope>Shareable</res-sharing-scope>
+  </resource-ref>
 </web-app>
