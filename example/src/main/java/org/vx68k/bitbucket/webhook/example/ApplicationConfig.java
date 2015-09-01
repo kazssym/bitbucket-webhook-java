@@ -20,7 +20,11 @@ package org.vx68k.bitbucket.webhook.example;
 
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Named;
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Credentials;
 
@@ -40,6 +44,9 @@ public class ApplicationConfig implements Serializable {
             = "org.vx68k.bitbucket.webhook.example.id";
     private static final String BITBUCKET_CLIENT_SECRET_PROPERTY_NAME
             = "org.vx68k.bitbucket.webhook.example.secret";
+
+    private transient final PersistenceManagerFactory managerFactory
+             = JDOHelper.getPersistenceManagerFactory();
 
     private final Client bitbucketClient;
 
@@ -68,5 +75,14 @@ public class ApplicationConfig implements Serializable {
             client.setCredentials(new Credentials(clientId, clientSecret));
         }
         return client;
+    }
+
+    /**
+     * Returns a persistence manager.
+     * @return persistence manager
+     */
+    @Produces
+    public PersistenceManager getPersistenceManager() {
+        return managerFactory.getPersistenceManager();
     }
 }
