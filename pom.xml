@@ -163,7 +163,7 @@
   </profiles>
   <modules>
     <module>webhook</module>
-    <module>webapp</module>
+    <module>example</module>
     <module>webapp-servlet</module>
     <module>webapp-standalone</module>
   </modules>
