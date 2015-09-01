@@ -164,8 +164,8 @@
   <modules>
     <module>webhook</module>
     <module>example</module>
-    <module>webapp-servlet</module>
-    <module>webapp-standalone</module>
+    <module>example-servlet</module>
+    <module>example-standalone</module>
   </modules>
   <dependencyManagement>
     <dependencies>
