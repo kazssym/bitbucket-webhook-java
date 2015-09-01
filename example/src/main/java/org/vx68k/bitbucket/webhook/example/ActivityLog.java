@@ -21,7 +21,9 @@ package org.vx68k.bitbucket.webhook.example;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.jdo.PersistenceManager;
 import org.vx68k.bitbucket.api.client.User;
 import org.vx68k.bitbucket.webhook.RepositoryPush;
 
@@ -37,6 +39,8 @@ public class ActivityLog {
 
     private final Logger logger = Logger.getLogger(getClass().getName());
 
+    private PersistenceManager persistenceManager;
+
     private RepositoryPush lastRepositoryPush = null;
 
     public void handleRepositoryPush(@Observes RepositoryPush push) {
@@ -49,5 +53,14 @@ public class ActivityLog {
 
     public RepositoryPush getLastRepositoryPush() {
         return lastRepositoryPush;
+    }
+
+    /**
+     * Sets the persistence manager of this object.
+     * @param persistenceManager persistence manager
+     */
+    @Inject
+    public void setActivityLog(PersistenceManager persistenceManager) {
+        this.persistenceManager = persistenceManager;
     }
 }
