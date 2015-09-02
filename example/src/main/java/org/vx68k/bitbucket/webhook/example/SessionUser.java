@@ -20,6 +20,8 @@ package org.vx68k.bitbucket.webhook.example;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.faces.context.ExternalContext;
@@ -74,21 +76,16 @@ public class SessionUser implements Serializable {
         this.applicationConfig = applicationConfig;
     }
 
-    public String login() throws IOException {
-        Client bitbucketClient = applicationConfig.getBitbucketClient();
-        AuthorizationCodeFlow flow
-                = bitbucketClient.getAuthorizationCodeFlow(false);
-        if (flow == null) {
-            throw new IllegalStateException("No client credentials");
-        }
-
+    public String login() throws URISyntaxException, IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         HttpSession session = (HttpSession) externalContext.getSession(true);
 
-        AuthorizationRequestUrl requestUrl = flow.newAuthorizationUrl();
-        requestUrl.setState(session.getId());
-        externalContext.redirect(requestUrl.build());
+        // Redirects the user agent to the authorization endpoint.
+        Client bitbucketClient = applicationConfig.getBitbucketClient();
+        URI authorizationEndpoint
+                = bitbucketClient.getAuthorizationEndpoint(session.getId());
+        externalContext.redirect(authorizationEndpoint.toString());
 
         return null;
     }
