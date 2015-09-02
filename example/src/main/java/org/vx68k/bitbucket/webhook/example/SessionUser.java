@@ -49,6 +49,16 @@ public class SessionUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Default port for the http scheme.
+     */
+    private static final int DEFAULT_HTTP_PORT = 80;
+
+    /**
+     * Default port for the https scheme.
+     */
+    private static final int DEFAULT_HTTPS_PORT = 443;
+
     private ApplicationConfig applicationConfig;
 
     private transient Service bitbucketService;
@@ -79,10 +89,19 @@ public class SessionUser implements Serializable {
     public String login() throws URISyntaxException, IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
-        HttpSession session = (HttpSession) externalContext.getSession(true);
+        HttpServletRequest request
+                = (HttpServletRequest) externalContext.getRequest();
 
         // Redirects the user agent to the authorization endpoint.
         Client bitbucketClient = applicationConfig.getBitbucketClient();
+        StringBuilder path = new StringBuilder(request.getContextPath());
+        URI redirectionEndpoint = new URI(
+                request.getScheme(), null, request.getServerName(),
+                getExplicitServerPort(request), getRedirectionPath(request),
+                null, null);
+        bitbucketClient.setRedirectionEndpoint(redirectionEndpoint);
+
+        HttpSession session = request.getSession();
         URI authorizationEndpoint
                 = bitbucketClient.getAuthorizationEndpoint(session.getId());
         externalContext.redirect(authorizationEndpoint.toString());
@@ -107,9 +126,49 @@ public class SessionUser implements Serializable {
                     bitbucketService = bitbucketClient.getService(code);
 
                     HttpServletResponse response = redirection.getResponse();
-                    response.sendRedirect(request.getContextPath() + "/");
+                    StringBuilder path = new StringBuilder(
+                            request.getContextPath());
+                    if (request.getPathInfo() != null) {
+                        path.append(request.getPathInfo());
+                    }
+                    response.sendRedirect(path.toString());
                 }
             }
         }
+    }
+
+    /**
+     * Returns the server port of a HTTP request.
+     * @param request HTTP request
+     * @return server port, or -1 if it is the default of the scheme
+     */
+    protected static int getExplicitServerPort(HttpServletRequest request) {
+        int port = request.getServerPort();
+        if (port == DEFAULT_HTTP_PORT
+                && "http".equals(request.getScheme())) {
+            return -1;
+        }
+        if (port == DEFAULT_HTTPS_PORT
+                && "https".equals(request.getScheme())) {
+            port = -1;
+        }
+        return port;
+    }
+
+    /**
+     * Returns the redirection endpoint path.
+     * @param request HTTP request
+     * @return redirection endpoint path
+     */
+    protected static String getRedirectionPath(HttpServletRequest request) {
+        StringBuilder path = new StringBuilder(request.getContextPath());
+        path.append("/authorized");
+        if (request.getServletPath() != null) {
+            path.append(request.getServletPath());
+        }
+        if (request.getPathInfo() != null) {
+            path.append(request.getPathInfo());
+        }
+        return path.toString();
     }
 }
