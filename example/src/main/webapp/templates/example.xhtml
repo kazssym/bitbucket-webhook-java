@@ -35,7 +35,7 @@
   <h:body>
     <h:form>
       <div id="toolbar" class="pure-menu pure-menu-horizontal">
-        <div class="pure-menu-heading">Bitbucket Webhook Example</div>
+        <h:outputLink styleClass="pure-menu-heading pure-menu-link" style="float: left;" value="#{request.contextPath}/">Bitbucket Webhook Example</h:outputLink>
         <ul class="pure-menu-list">
           <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
             <ui:fragment rendered="#{user.bitbucketUser != null}">
