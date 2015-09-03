@@ -33,11 +33,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Service;
+import org.vx68k.bitbucket.api.client.User;
 import org.vx68k.bitbucket.api.client.oauth.OAuthRedirection;
 
 /**
- * User of this web application.
- *
+ * User of the current session.
  * @author Kaz Nishimura
  * @since 1.0
  */
@@ -68,15 +68,36 @@ public class SessionUser implements Serializable {
         setApplicationConfig(applicationConfig);
     }
 
+    /**
+     * Returns the application configuration.
+     * @return application configuration
+     */
     public ApplicationConfig getApplicationConfig() {
         return applicationConfig;
     }
 
-    public boolean isAuthenticated() {
-        if (bitbucketService == null) {
-            return false;
+    /**
+     * Returns the current Bitbucket service.
+     * If there is no current service, an anonymous service shall be created.
+     * @return current service
+     */
+    protected Service getBitbucketService() {
+        synchronized (this) {
+            if (bitbucketService == null) {
+                Client client = applicationConfig.getBitbucketClient();
+                bitbucketService = client.getService();
+            }
         }
-        return bitbucketService.isAuthenticated();
+        return bitbucketService;
+    }
+
+    /**
+     * Returns the Bitbucket user of this object.
+     * @return Bitbucket user, or <code>null</code> if no user is authenticated
+     * @throws IOException if an I/O error has occurred
+     */
+    public User getBitbucketUser() throws IOException {
+        return getBitbucketService().getCurrentUser();
     }
 
     @Inject
@@ -84,6 +105,14 @@ public class SessionUser implements Serializable {
         this.applicationConfig = applicationConfig;
     }
 
+    /**
+     * Performs a login action by redirecting the user agent to the
+     * authorization endpoint.
+     * @return <code>null</code>
+     * @throws URISyntaxException if the authorization endpoint could not be
+     * parsed as a URI
+     * @throws IOException if an I/O error occurred
+     */
     public String login() throws URISyntaxException, IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
@@ -121,7 +150,9 @@ public class SessionUser implements Serializable {
                     // The resource access was authorized.
                     Client bitbucketClient
                             = applicationConfig.getBitbucketClient();
-                    bitbucketService = bitbucketClient.getService(code);
+                    synchronized (this) {
+                        bitbucketService = bitbucketClient.getService(code);
+                    }
 
                     HttpServletResponse response = redirection.getResponse();
                     StringBuilder path = new StringBuilder(
@@ -133,6 +164,18 @@ public class SessionUser implements Serializable {
                 }
             }
         }
+    }
+
+    /**
+     * Performs a logout action by disassociating the Bitbucket service.
+     * @return <code>null</code>
+     */
+    public String logout() {
+        synchronized (this) {
+            bitbucketService = null;
+        }
+
+        return null;
     }
 
     /**

@@ -38,8 +38,8 @@
         <div id="toolbar" class="pure-menu pure-menu-horizontal">
           <div class="pure-menu-heading">Bitbucket Webhook Example</div>
           <ul class="pure-menu-list">
-            <ui:fragment rendered="#{not empty config.bitbucketClient.credentials}">
-              <ui:fragment rendered="#{user.authenticated}">
+            <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
+              <ui:fragment rendered="#{user.bitbucketUser != null}">
                 <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                   <a id="account-menu-link" class="pure-menu-link" href="#" onclick="return false;">Account</a>
                   <ul id="account-menu-children" class="pure-menu-children">
@@ -47,11 +47,11 @@
                   </ul>
                 </li>
               </ui:fragment>
-              <ui:fragment rendered="#{not user.authenticated}">
+              <ui:fragment rendered="#{user.bitbucketUser == null}">
                 <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink></li>
               </ui:fragment>
             </ui:fragment>
-            <ui:fragment rendered="#{empty config.bitbucketClient.credentials}">
+            <ui:fragment rendered="#{config.bitbucketClient.credentials == null}">
               <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
             </ui:fragment>
           </ul>
