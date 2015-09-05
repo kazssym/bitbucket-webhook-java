@@ -37,6 +37,11 @@
       <div id="example-toolbar" class="pure-menu pure-menu-horizontal">
         <h:outputLink styleClass="pure-menu-heading pure-menu-link" style="float: left;" value="#{request.contextPath}/">Bitbucket Webhook Example</h:outputLink>
         <ul class="pure-menu-list" style="float: right;">
+          <ui:fragment rendered="#{user.administrator}">
+            <li class="pure-menu-item pure-menu-disabled">
+              <img class="example-icon" src="#{resource['icons/ic_settings_white_18dp.png']}" alt="Settings" title="Application settings"/>
+            </li>
+          </ui:fragment>
           <li class="pure-menu-item pure-menu-disabled">
             <img class="example-icon" src="#{resource['icons/ic_help_white_18dp.png']}" alt="Help" title="Help"/>
           </li>
