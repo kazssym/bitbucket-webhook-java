@@ -65,7 +65,7 @@ public class WebhookServlet extends HttpServlet {
     }
 
     protected void dispatch(JsonObject object) {
-        if (object.containsKey(RepositoryPush.PUSH_KEY)) {
+        if (object.containsKey(JsonKeys.PUSH)) {
             repositoryPushEvent.fire(new RepositoryPush(object));
         } else {
             log("Unhandled JSON: " + object.toString());
