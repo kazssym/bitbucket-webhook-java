@@ -18,7 +18,13 @@
 
 package org.vx68k.bitbucket.webhook;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonValue;
 
 /**
  * Represents a push to a Bitbucket repository.
@@ -27,20 +33,71 @@ import javax.json.JsonObject;
  */
 public class RepositoryPush extends Activity {
 
+    private static final Logger logger =
+            Logger.getLogger(RepositoryPush.class.getPackage().getName());
+
     private final JsonObject pushJsonObject;
+
+    private List<Change> changes;
 
     /**
      * Constructs this object from a JSON object.
      *
-     * @param jsonObject JSON object
+     * @param json JSON object
      */
-    public RepositoryPush(JsonObject jsonObject) {
-        super(jsonObject);
+    public RepositoryPush(JsonObject json) {
+        super(json);
+        changes = parseChanges(json.getJsonArray(JsonKeys.CHANGES));
 
-        pushJsonObject = jsonObject.getJsonObject(JsonKeys.PUSH);
+        pushJsonObject = json.getJsonObject(JsonKeys.PUSH);
     }
 
     public JsonObject getPushJsonObject() {
         return pushJsonObject;
+    }
+
+    /**
+     * Returns the list of the changes of this object.
+     * @return list of the changes
+     */
+    public List<Change> getChanges() {
+        return changes;
+    }
+
+    /**
+     * Sets the list of the changes of this object.
+     * @param changes list of the change
+     */
+    public void setChanges(List<Change> changes) {
+        this.changes = changes;
+    }
+
+    /**
+     * Parses a JSON array to a list of changes.
+     * @param json JSON array that represents list of changes
+     * @return list of changes
+     */
+    protected List<Change> parseChanges(JsonArray json) {
+        List<Change> changes = new ArrayList<Change>();
+        for (JsonValue value : json) {
+            changes.add(new Change((JsonObject) value));
+        }
+        return changes;
+    }
+
+    /**
+     * Change of a Bitbucket repository.
+     * @since 4.0
+     */
+    public static class Change {
+
+        public Change() {
+            logger.finer("Creating a blank Change");
+        }
+
+        public Change(JsonObject json) {
+            logger.log(
+                    Level.INFO, "Parsing JSON object (change): {0}", json);
+        }
     }
 }
