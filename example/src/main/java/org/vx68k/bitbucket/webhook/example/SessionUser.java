@@ -24,6 +24,7 @@ import java.net.URISyntaxException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import org.vx68k.bitbucket.api.client.User;
@@ -40,6 +41,27 @@ public class SessionUser extends OAuthUser {
 
     private static final long serialVersionUID = 1L;
 
+    private ApplicationConfig applicationConfig;
+
+    /**
+     * Returns the application configuration of this object.
+     * @return application configuration
+     * @since 2.0
+     */
+    public ApplicationConfig getApplicationConfig() {
+        return applicationConfig;
+    }
+
+    /**
+     * Sets the application configuration of this object.
+     * @param applicationConfig application configuration.
+     * @since 2.0
+     */
+    @Inject
+    public void setApplicationConfig(ApplicationConfig applicationConfig) {
+        this.applicationConfig = applicationConfig;
+    }
+
     /**
      * Returns the Bitbucket user of this object.
      * @return Bitbucket user, or <code>null</code> if no user is authenticated
@@ -47,6 +69,21 @@ public class SessionUser extends OAuthUser {
      */
     public User getBitbucketUser() throws IOException {
         return getBitbucketService().getCurrentUser();
+    }
+
+    /**
+     * Tests whether the current user is an administrator or not.
+     * @return <code>true</code> if the current user is an administrator, or
+     * <code>false</code> otherwise
+     * @throws IOException if an I/O error has occurred
+     * @since 2.0
+     */
+    public boolean isAdministrator() throws IOException {
+        User currentUser = getBitbucketUser();
+        if (currentUser == null) {
+            return false;
+        }
+        return applicationConfig.isAdministrator(currentUser);
     }
 
     /**
