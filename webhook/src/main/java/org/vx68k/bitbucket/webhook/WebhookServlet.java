@@ -19,7 +19,6 @@
 package org.vx68k.bitbucket.webhook;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.json.Json;
