@@ -19,11 +19,18 @@
 package org.vx68k.bitbucket.webhook.example;
 
 import java.io.Serializable;
+import java.util.UUID;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.Id;
+import javax.persistence.PersistenceContext;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Credentials;
+import org.vx68k.bitbucket.api.client.User;
 
 /**
  * Application configuration.
@@ -42,6 +49,21 @@ public class ApplicationConfig implements Serializable {
     private static final String BITBUCKET_OAUTH_CLIENT_SECRET_ENV =
             "BITBUCKET_OAUTH_CLIENT_SECRET";
 
+    @PersistenceContext(unitName = "org.vx68k.bitbucket.webhook.example")
+    private EntityManager entityManager;
+
+    /**
+     * Tests whether a Bitbucket user is an administrator or not.
+     * @param user Bitbucket user
+     * @return <code>true</code> if the Bitbucket user is an administrator, or
+     * <code>false</code> otherwise
+     * @since 2.0
+     */
+    public boolean isAdministrator(User user) {
+        // TODO: Check if the current user is an administrator.
+        return true;
+    }
+
     @Produces
     public static Client getBitbucketClient() {
         String clientId = System.getProperty(
@@ -56,5 +78,33 @@ public class ApplicationConfig implements Serializable {
             client.setCredentials(new Credentials(clientId, clientSecret));
         }
         return client;
+    }
+
+    /**
+     * Administrator entity.
+     * @since 2.0
+     */
+    @Entity(name = "administrator")
+    public static class Administrator {
+
+        @Id
+        @Column(name = "uuid")
+        private UUID uuid;
+
+        /**
+         * Returns the user UUID of this object.
+         * @return user UUID
+         */
+        public UUID getUuid() {
+            return uuid;
+        }
+
+        /**
+         * Sets the user UUID of this object.
+         * @param uuid user UUID
+         */
+        public void setUuid(UUID uuid) {
+            this.uuid = uuid;
+        }
     }
 }
