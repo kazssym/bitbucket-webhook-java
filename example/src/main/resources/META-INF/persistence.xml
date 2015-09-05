@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  persistence.xml - persistence configuration for bitbucket-webhook-example
+  persistence.xml - JPA configuration for bitbucket-webhook-example
   Copyright (C) 2015 Nishimura Software Studio
 
   This program is free software: you can redistribute it and/or modify it
