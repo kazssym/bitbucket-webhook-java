@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
+import org.vx68k.bitbucket.api.client.Commit;
 
 /**
  * Represents a push to a Bitbucket repository.
@@ -93,6 +94,14 @@ public class RepositoryPush extends Activity {
      */
     public static class Change {
 
+        private boolean created;
+
+        private boolean closed;
+
+        private boolean forced;
+
+        private List<Commit> commits;
+
         public Change() {
             logger.finer("Creating a blank Change");
         }
@@ -100,6 +109,42 @@ public class RepositoryPush extends Activity {
         public Change(JsonObject json) {
             logger.log(
                     Level.INFO, "Parsing JSON object (change): {0}", json);
+            created = json.getBoolean(JsonKeys.CREATED);
+            closed = json.getBoolean(JsonKeys.CLOSED);
+            forced = json.getBoolean(JsonKeys.FORCED);
+            // TODO: Parse commits.
+        }
+
+        public boolean isCreated() {
+            return created;
+        }
+
+        public boolean isClosed() {
+            return closed;
+        }
+
+        public boolean isForced() {
+            return forced;
+        }
+
+        public List<Commit> getCommits() {
+            return commits;
+        }
+
+        public void setCreated(boolean created) {
+            this.created = created;
+        }
+
+        public void setClosed(boolean closed) {
+            this.closed = closed;
+        }
+
+        public void setForced(boolean forced) {
+            this.forced = forced;
+        }
+
+        public void setCommits(List<Commit> commits) {
+            this.commits = commits;
         }
     }
 }
