@@ -25,7 +25,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>bitbucket-webhook</artifactId>
   <name>Bitbucket Webhook for Java</name>
-  <description>Library for processing the Bitbucket webhooks</description>
+  <description>Library for processing HTTP requests from the Bitbucket webhooks</description>
   <url>http://kazssym.bitbucket.org/bitbucket-webhook-java/</url>
   <build>
     <plugins>
