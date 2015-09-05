@@ -82,6 +82,10 @@ public class RepositoryPush extends Activity {
      * @return list of changes
      */
     protected List<Change> parseChanges(JsonArray jsonArray) {
+        if (jsonArray == null) {
+            return null;
+        }
+
         List<Change> changes = new ArrayList<Change>();
         for (JsonValue value : jsonArray) {
             changes.add(new Change((JsonObject) value));
