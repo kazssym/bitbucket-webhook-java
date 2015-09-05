@@ -49,7 +49,7 @@
       <url-pattern>/resources/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <description>Nobody has access to JSF source files.</description>
+      <description>Nobody has access to internal files.</description>
       <role-name>nobody</role-name>
     </auth-constraint>
   </security-constraint>
