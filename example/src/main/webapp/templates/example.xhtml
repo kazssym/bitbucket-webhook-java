@@ -48,11 +48,6 @@
                 </ul>
               </li>
             </ui:fragment>
-            <ui:fragment rendered="#{user.bitbucketUser == null}">
-              <li class="pure-menu-item">
-                <h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink>
-              </li>
-            </ui:fragment>
           </ui:fragment>
           <ui:fragment rendered="#{user.bitbucketClient.credentials == null}">
             <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
@@ -70,6 +65,11 @@
           </nav>
         </div>
         <div class="pure-u-1 pure-u-md-3-4" style="overflow: auto;">
+          <ui:fragment rendered="#{user.bitbucketUser == null}">
+            <div style="float:right; margin: 0.5em;" title="Login with Bitbucket">
+              <h:commandButton styleClass="pure-button" action="#{user.login}" value="Login"/>
+            </div>
+          </ui:fragment>
           <main style="margin: 0.5em;">
             <ui:insert name="main"/>
           </main>
