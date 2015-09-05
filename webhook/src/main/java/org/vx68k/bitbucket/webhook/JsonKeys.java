@@ -26,6 +26,16 @@ package org.vx68k.bitbucket.webhook;
 public class JsonKeys {
 
     /**
+     * JSON key for the <code>actor</code> object.
+     */
+    public static final String ACTOR = "actor";
+
+    /**
+     * JSON key for the <code>repository</code> object.
+     */
+    public static final String REPOSITORY = "repository";
+
+    /**
      * JSON key for the <code>push</code> object.
      */
     public static final String PUSH = "push";
