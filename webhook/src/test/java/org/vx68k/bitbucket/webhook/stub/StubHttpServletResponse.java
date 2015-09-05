@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.webhook.servlet.stub;
+package org.vx68k.bitbucket.webhook.stub;
 
 import java.io.IOException;
 import java.io.PrintWriter;

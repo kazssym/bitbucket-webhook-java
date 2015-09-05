@@ -1,5 +1,5 @@
 /*
- * WebhookServlet - handles HTTP requests from Bitbucket webhooks
+ * WebhookServlet
  * Copyright (C) 2014-2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.webhook.servlet;
+package org.vx68k.bitbucket.webhook;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -31,13 +31,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.vx68k.bitbucket.webhook.RepositoryPush;
 
 /**
- * Handles HTTP requests from Bitbucket webhooks.
- *
+ * Processes HTTP requests from Bitbucket webhooks.
  * @author Kaz Nishimura
- * @since 1.0
+ * @since 4.0
  */
 @WebServlet(
         name = "Bitbucket Webhook Servlet",
@@ -53,14 +51,7 @@ public class WebhookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException,
             IOException {
-        String encoding = request.getCharacterEncoding();
-        log("Request encoding: " + encoding);
-        if (encoding == null) {
-            encoding = "UTF-8";
-        }
-
-        JsonReader reader = Json.createReader(
-                new InputStreamReader(request.getInputStream(), encoding));
+        JsonReader reader = Json.createReader(request.getInputStream());
         try {
             JsonObject object = reader.readObject();
             dispatch(object);

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.webhook.servlet;
+package org.vx68k.bitbucket.webhook;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -27,15 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vx68k.bitbucket.webhook.servlet.stub.StubHttpServletRequest;
-import org.vx68k.bitbucket.webhook.servlet.stub.StubHttpServletResponse;
+import org.vx68k.bitbucket.webhook.stub.StubHttpServletRequest;
+import org.vx68k.bitbucket.webhook.stub.StubHttpServletResponse;
 import static org.junit.Assert.*;
 
 /**
  * Unit tests for {@link WebhookServlet}.
- *
  * @author Kaz Nishimura
- * @since 1.0
+ * @since 4.0
  */
 public class WebhookServletTest implements ServletConfig {
 
