@@ -21,7 +21,7 @@
   <groupId>org.vx68k.bitbucket</groupId>
   <artifactId>bitbucket-webhook-parent</artifactId>
   <packaging>pom</packaging>
-  <name>Bitbucket Webhook Library for Java (Parent)</name>
+  <name>Bitbucket Webhook for Java (Parent)</name>
   <version>2.0-SNAPSHOT</version>
   <description>Parent project for the Bitbucket Webhook Library</description>
   <url>http://kazssym.bitbucket.org/bitbucket-webhook-java/</url>
