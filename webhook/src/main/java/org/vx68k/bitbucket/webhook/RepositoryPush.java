@@ -37,19 +37,20 @@ public class RepositoryPush extends Activity {
     private static final Logger logger =
             Logger.getLogger(RepositoryPush.class.getPackage().getName());
 
-    private final JsonObject pushJsonObject;
-
     private List<Change> changes;
+
+    // TODO: Remove this field.
+    private final JsonObject pushJsonObject;
 
     /**
      * Constructs this object from a JSON object.
      *
-     * @param json JSON object
+     * @param jsonObject JSON object
      */
-    public RepositoryPush(JsonObject json) {
-        super(json);
+    public RepositoryPush(JsonObject jsonObject) {
+        super(jsonObject);
 
-        JsonObject push = json.getJsonObject(JsonKeys.PUSH);
+        JsonObject push = jsonObject.getJsonObject(JsonKeys.PUSH);
         changes = parseChanges(push.getJsonArray(JsonKeys.CHANGES));
 
         pushJsonObject = push;
@@ -77,12 +78,12 @@ public class RepositoryPush extends Activity {
 
     /**
      * Parses a JSON array to a list of changes.
-     * @param json JSON array that represents list of changes
+     * @param jsonArray JSON array that represents list of changes
      * @return list of changes
      */
-    protected List<Change> parseChanges(JsonArray json) {
+    protected List<Change> parseChanges(JsonArray jsonArray) {
         List<Change> changes = new ArrayList<Change>();
-        for (JsonValue value : json) {
+        for (JsonValue value : jsonArray) {
             changes.add(new Change((JsonObject) value));
         }
         return changes;
@@ -102,17 +103,24 @@ public class RepositoryPush extends Activity {
 
         private List<Commit> commits;
 
+        // TODO: Remove this field.
+        private final JsonObject jsonObject;
+
         public Change() {
             logger.finer("Creating a blank Change");
+            this.jsonObject = null;
         }
 
-        public Change(JsonObject json) {
+        public Change(JsonObject jsonObject) {
             logger.log(
-                    Level.INFO, "Parsing JSON object (change): {0}", json);
-            created = json.getBoolean(JsonKeys.CREATED);
-            closed = json.getBoolean(JsonKeys.CLOSED);
-            forced = json.getBoolean(JsonKeys.FORCED);
+                    Level.INFO, "Parsing JSON object (change): {0}",
+                    jsonObject);
+            created = jsonObject.getBoolean(JsonKeys.CREATED);
+            closed = jsonObject.getBoolean(JsonKeys.CLOSED);
+            forced = jsonObject.getBoolean(JsonKeys.FORCED);
             // TODO: Parse commits.
+
+            this.jsonObject = jsonObject;
         }
 
         public boolean isCreated() {
@@ -129,6 +137,10 @@ public class RepositoryPush extends Activity {
 
         public List<Commit> getCommits() {
             return commits;
+        }
+
+        public JsonObject getJsonObject() {
+            return jsonObject;
         }
 
         public void setCreated(boolean created) {
