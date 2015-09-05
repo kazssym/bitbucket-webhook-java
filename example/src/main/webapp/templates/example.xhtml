@@ -40,7 +40,9 @@
           <ui:fragment rendered="#{user.bitbucketClient.credentials != null}">
             <ui:fragment rendered="#{user.bitbucketUser != null}">
               <li id="example-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                <a id="example-account-menu-link" class="pure-menu-link" href="#" onclick="return false;">Account</a>
+                <a id="example-account-menu-link" class="pure-menu-link" href="#" onclick="return false;">
+                  <h:outputText value="#{user.bitbucketUser.username}"/>
+                </a>
                 <ul id="example-account-menu-children" class="pure-menu-children">
                   <li class="pure-menu-item">
                     <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">Logout</h:commandLink>
