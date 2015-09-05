@@ -47,9 +47,11 @@ public class RepositoryPush extends Activity {
      */
     public RepositoryPush(JsonObject json) {
         super(json);
-        changes = parseChanges(json.getJsonArray(JsonKeys.CHANGES));
 
-        pushJsonObject = json.getJsonObject(JsonKeys.PUSH);
+        JsonObject push = json.getJsonObject(JsonKeys.PUSH);
+        changes = parseChanges(push.getJsonArray(JsonKeys.CHANGES));
+
+        pushJsonObject = push;
     }
 
     public JsonObject getPushJsonObject() {
