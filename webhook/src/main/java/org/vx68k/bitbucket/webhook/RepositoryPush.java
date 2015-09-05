@@ -22,16 +22,10 @@ import javax.json.JsonObject;
 
 /**
  * Represents a push to a Bitbucket repository.
- *
  * @author Kaz Nishimura
  * @since 1.0
  */
 public class RepositoryPush extends Activity {
-
-    /**
-     * JSON key for the push object.
-     */
-    public static final String PUSH_KEY = "push";
 
     private final JsonObject pushJsonObject;
 
@@ -43,7 +37,7 @@ public class RepositoryPush extends Activity {
     public RepositoryPush(JsonObject jsonObject) {
         super(jsonObject);
 
-        pushJsonObject = jsonObject.getJsonObject(PUSH_KEY);
+        pushJsonObject = jsonObject.getJsonObject(JsonKeys.PUSH);
     }
 
     public JsonObject getPushJsonObject() {
