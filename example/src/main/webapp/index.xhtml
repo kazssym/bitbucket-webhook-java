@@ -36,7 +36,19 @@
           was made by ${activityLog.lastRepositoryPush.actor.username} to ${activityLog.lastRepositoryPush.repository.fullName}.
           <h:dataTable styleClass="pure-table pure-table-horizontal" var="change" value="#{activityLog.lastRepositoryPush.changes}">
             <h:column>
-              <f:facet name="header">Change (JSON)</f:facet>
+              <f:facet name="header">Created</f:facet>
+              <h:outputText value="#{change.created}"/>
+            </h:column>
+            <h:column>
+              <f:facet name="header">Closed</f:facet>
+              <h:outputText value="#{change.closed}"/>
+            </h:column>
+            <h:column>
+              <f:facet name="header">Forced</f:facet>
+              <h:outputText value="#{change.forced}"/>
+            </h:column>
+            <h:column>
+              <f:facet name="header">JSON</f:facet>
               <h:outputText value="#{change.jsonObject}"/>
             </h:column>
           </h:dataTable>
