@@ -50,10 +50,11 @@ public class SessionUser extends OAuthUser {
     }
 
     /**
-     * Indicates whether the current user is an administrator or not.
+     * Tests whether the current user is an administrator or not.
      * @return <code>true</code> if the current user is an administrator, or
      * <code>false</code> otherwise
      * @throws IOException if an I/O error has occurred
+     * @since 2.0
      */
     public boolean isAdministrator() throws IOException {
         User currentUser = getBitbucketUser();
