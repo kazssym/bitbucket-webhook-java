@@ -26,7 +26,7 @@
   <artifactId>bitbucket-webhook-example</artifactId>
   <packaging>war</packaging>
   <name>Bitbucket Webhook Example</name>
-  <description>Example web application of the Bitbucket Webhook Library</description>
+  <description>Example web application of the Bitbucket Webhook for Java</description>
   <build>
     <plugins>
       <plugin>
