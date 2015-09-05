@@ -30,6 +30,11 @@ public class JsonKeys {
      */
     public static final String PUSH = "push";
 
+    /**
+     * JSON key for the <code>changes</code> array.
+     */
+    public static final String CHANGES = "changes";
+
     private JsonKeys() {
     }
 }
