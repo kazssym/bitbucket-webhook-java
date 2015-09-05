@@ -39,9 +39,6 @@ public class RepositoryPush extends Activity {
 
     private List<Change> changes;
 
-    // TODO: Remove this field.
-    private final JsonObject pushJsonObject;
-
     /**
      * Constructs this object from a JSON object.
      *
@@ -52,12 +49,6 @@ public class RepositoryPush extends Activity {
 
         JsonObject push = jsonObject.getJsonObject(JsonKeys.PUSH);
         changes = parseChanges(push.getJsonArray(JsonKeys.CHANGES));
-
-        pushJsonObject = push;
-    }
-
-    public JsonObject getPushJsonObject() {
-        return pushJsonObject;
     }
 
     /**
