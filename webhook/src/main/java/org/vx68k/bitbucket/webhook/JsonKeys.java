@@ -31,9 +31,34 @@ public class JsonKeys {
     public static final String PUSH = "push";
 
     /**
+     * JSON key for the <code>links</code> object.
+     */
+    public static final String LINKS = "links";
+
+    /**
      * JSON key for the <code>changes</code> array.
      */
     public static final String CHANGES = "changes";
+
+    /**
+     * JSON key for the <code>commits</code> array.
+     */
+    public static final String COMMITS = "commits";
+
+    /**
+     * JSON key for the <code>created</code> value.
+     */
+    public static final String CREATED = "created";
+
+    /**
+     * JSON key for the <code>closed</code> value.
+     */
+    public static final String CLOSED = "closed";
+
+    /**
+     * JSON key for the <code>forced</code> value.
+     */
+    public static final String FORCED = "forced";
 
     private JsonKeys() {
     }
