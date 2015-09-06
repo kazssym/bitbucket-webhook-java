@@ -34,24 +34,29 @@
         </ui:fragment>
         <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
           was made by ${activityLog.lastRepositoryPush.actor.username} to ${activityLog.lastRepositoryPush.repository.fullName}.
-          <h:dataTable styleClass="pure-table pure-table-horizontal" var="change" value="#{activityLog.lastRepositoryPush.changes}">
-            <h:column>
-              <f:facet name="header">Created</f:facet>
-              <h:outputText value="#{change.created}"/>
-            </h:column>
-            <h:column>
-              <f:facet name="header">Closed</f:facet>
-              <h:outputText value="#{change.closed}"/>
-            </h:column>
-            <h:column>
-              <f:facet name="header">Forced</f:facet>
-              <h:outputText value="#{change.forced}"/>
-            </h:column>
-            <h:column>
-              <f:facet name="header">JSON</f:facet>
-              <h:outputText value="#{change.jsonObject}"/>
-            </h:column>
-          </h:dataTable>
+          <table class="pure-table pure-table-horizontal example-table">
+            <thead>
+              <th>Change</th>
+              <th>Attributes</th>
+              <th>JSON</th>
+            </thead>
+            <tbody>
+              <ui:repeat value="#{activityLog.lastRepositoryPush.changes}" var="change" varStatus="changeStatus">
+                <tr>
+                  <td>#{changeStatus.index + 1}</td>
+                  <td>
+                    <h:outputText rendered="#{change.created}">Created</h:outputText>
+                    <h:outputText rendered="#{change.closed}">Closed</h:outputText>
+                    <h:outputText rendered="#{change.forced}">Forced</h:outputText>
+                    <h:outputText rendered="#{not (change.created or change.closed or change.forced)}">None</h:outputText>
+                  </td>
+                  <td>
+                    <h:outputText value="#{change.jsonObject}"/>
+                  </td>
+                </tr>
+              </ui:repeat>
+            </tbody>
+          </table>
         </ui:fragment>
       </div>
     </ui:define>
