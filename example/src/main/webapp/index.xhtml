@@ -45,10 +45,10 @@
                 <tr>
                   <td>#{changeStatus.index + 1}</td>
                   <td>
-                    <h:outputText rendered="#{change.created}">Created</h:outputText>
-                    <h:outputText rendered="#{change.closed}">Closed</h:outputText>
-                    <h:outputText rendered="#{change.forced}">Forced</h:outputText>
-                    <h:outputText rendered="#{not (change.created or change.closed or change.forced)}">None</h:outputText>
+                    <h:outputText rendered="#{change.created}" value="Created"/>
+                    <h:outputText rendered="#{change.closed}" value="Closed"/>
+                    <h:outputText rendered="#{change.forced}" value="Forced"/>
+                    <h:outputText rendered="#{not (change.created or change.closed or change.forced)}" value="None"/>
                   </td>
                   <td>
                     <h:outputText value="#{change.jsonObject}"/>
