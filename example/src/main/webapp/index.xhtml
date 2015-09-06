@@ -23,42 +23,46 @@
       <h1>Introduction</h1>
       <p>
         This web application is an example and testbed of the
-        <h:outputLink value="http://www.vx68k.org/bitbucket-webhook-java">Bitbucket Webhook for Java</h:outputLink>
+        <a href="http://www.vx68k.org/bitbucket-webhook-java">Bitbucket Webhook for Java</a>
         library.
       </p>
       <h2>Last activity</h2>
-      <div>
-        The last repository push
-        <ui:fragment rendered="#{empty activityLog.lastRepositoryPush}">
-          is not recorded after the most recent startup.
-        </ui:fragment>
-        <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
-          was made by ${activityLog.lastRepositoryPush.actor.username} to ${activityLog.lastRepositoryPush.repository.fullName}.
-          <table class="pure-table pure-table-horizontal example-table">
-            <thead>
-              <th>Change</th>
-              <th>Attributes</th>
-              <th>JSON</th>
-            </thead>
-            <tbody>
-              <ui:repeat value="#{activityLog.lastRepositoryPush.changes}" var="change" varStatus="changeStatus">
-                <tr>
-                  <td>#{changeStatus.index + 1}</td>
-                  <td>
-                    <h:outputText rendered="#{change.created}" value="Created"/>
-                    <h:outputText rendered="#{change.closed}" value="Closed"/>
-                    <h:outputText rendered="#{change.forced}" value="Forced"/>
-                    <h:outputText rendered="#{not (change.created or change.closed or change.forced)}" value="None"/>
-                  </td>
-                  <td>
-                    <h:outputText value="#{change.jsonObject}"/>
-                  </td>
-                </tr>
-              </ui:repeat>
-            </tbody>
-          </table>
-        </ui:fragment>
-      </div>
+      <ui:fragment rendered="#{empty activityLog.lastRepositoryPush}">
+        <p>
+          The last repository push is not recorded after the most recent startup.
+        </p>
+      </ui:fragment>
+      <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
+        <p>
+          The last repository push was made by
+          <a href="#{activityLog.lastRepositoryPush.actor.links['html']}">#{activityLog.lastRepositoryPush.actor.username}</a>
+          to
+          <a href="#{activityLog.lastRepositoryPush.repository.links['html']}">#{activityLog.lastRepositoryPush.repository.fullName}</a>.
+        </p>
+        <table class="pure-table pure-table-horizontal example-table">
+          <thead>
+            <th>Change</th>
+            <th>Attributes</th>
+            <th>JSON</th>
+          </thead>
+          <tbody>
+            <ui:repeat value="#{activityLog.lastRepositoryPush.changes}" var="change" varStatus="changeStatus">
+              <tr>
+                <td>#{changeStatus.index + 1}</td>
+                <td>
+                  <h:outputText rendered="#{change.created}" value="Created"/>
+                  <h:outputText rendered="#{change.closed}" value="Closed"/>
+                  <h:outputText rendered="#{change.forced}" value="Forced"/>
+                  <h:outputText rendered="#{not (change.created or change.closed or change.forced)}" value="None"/>
+                </td>
+                <td>
+                  <h:outputText value="#{change.jsonObject}"/>
+                </td>
+              </tr>
+            </ui:repeat>
+          </tbody>
+        </table>
+      </ui:fragment>
     </ui:define>
   </ui:composition>
 </html>
