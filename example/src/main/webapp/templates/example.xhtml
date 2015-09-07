@@ -66,10 +66,10 @@
         </nav>
       </div>
       <div class="pure-u-1 pure-u-md-3-4">
-        <h:form style="margin: 0.5em; float: right;" rendered="#{user.bitbucketClient.credentials != null and user.bitbucketUser == null}">
-          <h:commandButton styleClass="pure-button" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
-        </h:form>
         <main style="margin: 0.5em; overflow: auto;">
+          <h:form style="float: right;" rendered="#{user.bitbucketClient.credentials != null and user.bitbucketUser == null}">
+            <h:commandButton styleClass="pure-button" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
+          </h:form>
           <ui:insert name="main"/>
         </main>
       </div>
