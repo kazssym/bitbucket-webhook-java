@@ -66,13 +66,13 @@
             <div class="pure-menu-heading">No nav menu yet</div>
           </nav>
         </div>
-        <div class="pure-u-1 pure-u-md-3-4" style="overflow: auto;">
+        <div class="pure-u-1 pure-u-md-3-4">
           <ui:fragment rendered="#{user.bitbucketClient.credentials != null and user.bitbucketUser == null}">
             <div style="float:right; margin: 0.5em;" title="Login with Bitbucket">
               <h:commandButton styleClass="pure-button" action="#{user.login}" value="Login"/>
             </div>
           </ui:fragment>
-          <main style="margin: 0.5em;">
+          <main style="margin: 0.5em; overflow: auto;">
             <ui:insert name="main"/>
           </main>
         </div>
