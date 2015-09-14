@@ -41,7 +41,7 @@ public class ActivityLog {
 
     public void handleRepositoryPush(@Observes RepositoryPush push) {
         User actor = push.getActor();
-        logger.info(actor.getUsername() + " pushed");
+        logger.info(actor.getName() + " pushed");
 
         lastRepositoryPush = push;
     }

@@ -22,8 +22,8 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
-import org.vx68k.bitbucket.api.client.Client;
-import org.vx68k.bitbucket.api.client.Credentials;
+import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
+import org.vx68k.bitbucket.api.client.oauth.OAuthCredentials;
 
 /**
  * Application configuration.
@@ -43,7 +43,7 @@ public class ApplicationConfig implements Serializable {
             "BITBUCKET_OAUTH_CLIENT_SECRET";
 
     @Produces
-    public static Client getBitbucketClient() {
+    public static OAuthClient getBitbucketClient() {
         String clientId = System.getProperty(
                 Properties.BITBUCKET_OAUTH_CLIENT_ID,
                 System.getenv(BITBUCKET_OAUTH_CLIENT_ID_ENV));
@@ -51,9 +51,9 @@ public class ApplicationConfig implements Serializable {
                 Properties.BITBUCKET_OAUTH_CLIENT_SECRET,
                 System.getenv(BITBUCKET_OAUTH_CLIENT_SECRET_ENV));
 
-        Client client = new Client();
+        OAuthClient client = new OAuthClient();
         if (clientId != null && clientSecret != null) {
-            client.setCredentials(new Credentials(clientId, clientSecret));
+            client.setCredentials(new OAuthCredentials(clientId, clientSecret));
         }
         return client;
     }
