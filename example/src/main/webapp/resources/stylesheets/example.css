@@ -16,7 +16,21 @@
 }
 
 html {
+  height: 100%;
   line-height: 1.2em;
+}
+
+body {
+  min-height: 100%;
+}
+
+main {
+  margin: 0.5em;
+  overflow: hidden;
+}
+
+nav {
+  overflow: hidden;
 }
 
 .pure-menu-children {
@@ -33,13 +47,23 @@ html {
   background-color: #777799;
 }
 
-#example-toolbar .pure-menu-link {
-  color: inherit;
+#example-toolbar > .pure-menu-heading {
+  color: #F7F7FF;
 }
 
+#example-toolbar .pure-menu-link {
+  color: #F7F7F7;
+}
+
+#example-toolbar .pure-menu-active > .pure-menu-link,
 #example-toolbar .pure-menu-link:hover,
 #example-toolbar .pure-menu-link:focus {
   background-color: #8888AA;
+}
+
+#example-toolbar .pure-menu-selected .pure-menu-link,
+#example-toolbar .pure-menu-selected .pure-menu-link:visited {
+  color: #FFFFFF;
 }
 
 #example-nav-menu {
