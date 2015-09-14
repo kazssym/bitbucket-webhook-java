@@ -20,7 +20,6 @@ package org.vx68k.bitbucket.webhook.example;
 
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 import org.vx68k.bitbucket.api.client.oauth.OAuthCredentials;
@@ -34,7 +33,7 @@ import org.vx68k.bitbucket.api.client.oauth.OAuthCredentials;
 @Named("config")
 public class ApplicationConfig implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final String BITBUCKET_OAUTH_CLIENT_ID_ENV =
             "BITBUCKET_OAUTH_CLIENT_ID";
@@ -42,19 +41,49 @@ public class ApplicationConfig implements Serializable {
     private static final String BITBUCKET_OAUTH_CLIENT_SECRET_ENV =
             "BITBUCKET_OAUTH_CLIENT_SECRET";
 
-    @Produces
-    public static OAuthClient getBitbucketClient() {
+    private OAuthClient bitbucketClient;
+
+    /**
+     * Returns the Bitbucket client with the configured client credentials.
+     * This method shall returns the same Bitbucket client.
+     * @return Bitbucket client
+     * @since 2.0
+     */
+    public OAuthClient getBitbucketClient() {
+        synchronized (this) {
+            if (bitbucketClient == null) {
+                bitbucketClient = getBitbucketClient(getClientCredentials());
+            }
+        }
+        return bitbucketClient;
+    }
+
+    /**
+     * Returns a Bitbucket client with client credentials.
+     * @param clientCredentials client credentials
+     * @return Bitbucket client
+     * @since 2.0
+     */
+    public static OAuthClient getBitbucketClient(
+            OAuthCredentials clientCredentials) {
+        return new OAuthClient(clientCredentials);
+    }
+
+    /**
+     * Returns the configured client credentials.
+     * @return configured client credentials
+     * @since 2.0
+     */
+    protected static OAuthCredentials getClientCredentials() {
         String clientId = System.getProperty(
                 Properties.BITBUCKET_OAUTH_CLIENT_ID,
                 System.getenv(BITBUCKET_OAUTH_CLIENT_ID_ENV));
         String clientSecret = System.getProperty(
                 Properties.BITBUCKET_OAUTH_CLIENT_SECRET,
                 System.getenv(BITBUCKET_OAUTH_CLIENT_SECRET_ENV));
-
-        OAuthClient client = new OAuthClient();
-        if (clientId != null && clientSecret != null) {
-            client.setCredentials(new OAuthCredentials(clientId, clientSecret));
+        if (clientId == null || clientSecret == null) {
+            return null;
         }
-        return client;
+        return new OAuthCredentials(clientId, clientSecret);
     }
 }

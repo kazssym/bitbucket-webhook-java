@@ -39,11 +39,11 @@
         <li class="pure-menu-item pure-menu-disabled">
           <h:graphicImage styleClass="example-icon" name="icons/ic_help_white_18dp.png" alt="Help" title="Help"/>
         </li>
-        <ui:fragment rendered="#{user.bitbucketClient.credentials != null}">
+        <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
           <ui:fragment rendered="#{user.bitbucketUser != null}">
             <li id="example-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
               <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
-                <h:outputText value="#{user.bitbucketUser.username}"/>
+                <h:outputText value="#{user.bitbucketUser.name}"/>
               </h:outputLink>
               <ul class="pure-menu-children">
                 <li class="pure-menu-item">
@@ -53,7 +53,7 @@
             </li>
           </ui:fragment>
         </ui:fragment>
-        <ui:fragment rendered="#{user.bitbucketClient.credentials == null}">
+        <ui:fragment rendered="#{config.bitbucketClient.credentials == null}">
           <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
         </ui:fragment>
       </ul>
@@ -67,7 +67,7 @@
       </div>
       <div class="pure-u-1 pure-u-md-3-4">
         <main style="margin: 0.5em; overflow: auto;">
-          <h:form id="example-login" style="float: right;" rendered="#{user.bitbucketClient.credentials != null and user.bitbucketUser == null}">
+          <h:form id="example-login" style="float: right;" rendered="#{config.bitbucketClient.credentials != null and user.bitbucketUser == null}">
             <h:commandButton styleClass="pure-button" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
           </h:form>
           <ui:insert name="main"/>

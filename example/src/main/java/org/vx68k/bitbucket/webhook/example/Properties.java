@@ -31,14 +31,14 @@ public class Properties {
     /**
      * Property key for the Bitbucket OAuth client identifider (consumer key).
      */
-    public static final String BITBUCKET_OAUTH_CLIENT_ID
-            = PREFIX + ".oauth.id";
+    public static final String BITBUCKET_OAUTH_CLIENT_ID =
+            PREFIX + ".oauth.clientId";
 
     /**
      * Property key for the Bitbucket OAuth client secret (consumer secret).
      */
-    public static final String BITBUCKET_OAUTH_CLIENT_SECRET
-            = PREFIX + ".oauth.secret";
+    public static final String BITBUCKET_OAUTH_CLIENT_SECRET =
+            PREFIX + ".oauth.clientSecret";
 
     private Properties() {
     }

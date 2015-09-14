@@ -24,8 +24,10 @@ import java.net.URISyntaxException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import org.vx68k.bitbucket.api.client.Service;
 import org.vx68k.bitbucket.api.client.User;
 import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 import org.vx68k.bitbucket.api.client.oauth.OAuthUser;
@@ -39,15 +41,54 @@ import org.vx68k.bitbucket.api.client.oauth.OAuthUser;
 @Named("user")
 public class SessionUser extends OAuthUser {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
+
+    private ApplicationConfig applicationConfig;
+
+    public SessionUser() {
+    }
+
+    /**
+     * Constructs this object with an application configuration.
+     * This constructor is equivalent to the default one followed by a call to
+     * {@link #setApplicationConfig}.
+     * @param applicationConfig application configuration
+     * @since 2.0
+     */
+    public SessionUser(ApplicationConfig applicationConfig) {
+        setApplicationConfig(applicationConfig);
+    }
+
+    /**
+     * Returns the application configuration associated to this object.
+     * @return application configuration
+     * @since 2.0
+     */
+    public ApplicationConfig getApplicationConfig() {
+        return applicationConfig;
+    }
+
+    /**
+     * Sets the application configuration associated to this object.
+     * @param applicationConfig new application configuration
+     * @since 2.0
+     */
+    @Inject
+    public void setApplicationConfig(ApplicationConfig applicationConfig) {
+        this.applicationConfig = applicationConfig;
+    }
 
     /**
      * Returns the Bitbucket user of this object.
      * @return Bitbucket user, or <code>null</code> if no user is authenticated
      * @throws IOException if an I/O error has occurred
+     * @deprecated As of version 2.0, use {@link #getBitbucketService} and
+     * {@link Service#getCurrentUser} instead.
      */
+    @Deprecated
     public User getBitbucketUser() throws IOException {
-        return getBitbucketService().getCurrentUser();
+        Service bitbucketService = getBitbucketService();
+        return bitbucketService.getCurrentUser();
     }
 
     /**
@@ -58,8 +99,8 @@ public class SessionUser extends OAuthUser {
      * @throws IOException if an I/O error has occurred
      */
     public String login() throws URISyntaxException, IOException {
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = context.getExternalContext();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
         HttpServletRequest request =
                 (HttpServletRequest) externalContext.getRequest();
 
@@ -82,6 +123,6 @@ public class SessionUser extends OAuthUser {
 
     @Override
     protected OAuthClient getBitbucketClient() {
-        return ApplicationConfig.getBitbucketClient();
+        return applicationConfig.getBitbucketClient();
     }
 }
