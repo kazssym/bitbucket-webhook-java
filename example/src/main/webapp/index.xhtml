@@ -23,7 +23,7 @@
       <h1>Introduction</h1>
       <p>
         This web application is an example and testbed of the
-        <a href="http://www.vx68k.org/bitbucket-webhook-java">Bitbucket Webhook for Java</a>
+        <h:outputLink value="http://www.vx68k.org/bitbucket-webhook-java">Bitbucket Webhook for Java</h:outputLink>
         library.
       </p>
       <h2>Last activity</h2>
@@ -35,9 +35,12 @@
       <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
         <p>
           The last repository push was made by
-          <a href="#{activityLog.lastRepositoryPush.actor.links['html']}">#{activityLog.lastRepositoryPush.actor.name}</a>
-          to
-          <a href="#{activityLog.lastRepositoryPush.repository.links['html']}">#{activityLog.lastRepositoryPush.repository.fullName}</a>.
+          <h:outputLink value="#{activityLog.lastRepositoryPush.actor.links['html']}">
+            <h:outputText value="#{activityLog.lastRepositoryPush.actor.name}"/>
+          </h:outputLink> to
+          <h:outputLink value="#{activityLog.lastRepositoryPush.repository.links['html']}">
+            <h:outputText value="#{activityLog.lastRepositoryPush.repository.fullName}"/>
+          </h:outputLink>.
         </p>
         <table class="pure-table pure-table-horizontal example-table">
           <thead>
