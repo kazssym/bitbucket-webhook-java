@@ -35,7 +35,7 @@
       <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
         <p>
           The last repository push was made by
-          <a href="#{activityLog.lastRepositoryPush.actor.links['html']}">#{activityLog.lastRepositoryPush.actor.username}</a>
+          <a href="#{activityLog.lastRepositoryPush.actor.links['html']}">#{activityLog.lastRepositoryPush.actor.name}</a>
           to
           <a href="#{activityLog.lastRepositoryPush.repository.links['html']}">#{activityLog.lastRepositoryPush.repository.fullName}</a>.
         </p>
