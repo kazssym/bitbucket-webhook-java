@@ -29,10 +29,6 @@ main {
   overflow: hidden;
 }
 
-nav {
-  overflow: hidden;
-}
-
 .pure-menu-children {
   background-color: #F7F7F7;
 }
@@ -70,6 +66,7 @@ nav {
 }
 
 #nav-menu {
+  overflow: hidden;
   background-color: #F7F7F7;
 }
 
