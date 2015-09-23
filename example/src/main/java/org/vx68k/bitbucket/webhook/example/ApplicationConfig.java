@@ -25,8 +25,9 @@ import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
-import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import org.vx68k.bitbucket.api.client.User;
 import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 import org.vx68k.bitbucket.api.client.oauth.OAuthCredentials;
@@ -48,8 +49,8 @@ public class ApplicationConfig implements Serializable {
     private static final String BITBUCKET_OAUTH_CLIENT_SECRET_ENV =
             "BITBUCKET_OAUTH_CLIENT_SECRET";
 
-    @PersistenceContext(unitName = "org.vx68k.bitbucket.webhook.example")
-    private EntityManager entityManager;
+    @PersistenceUnit(unitName = "org.vx68k.bitbucket.webhook.example")
+    private EntityManagerFactory entityManagerFactory;
 
     private OAuthClient bitbucketClient;
 
