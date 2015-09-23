@@ -20,7 +20,9 @@
   <persistence-unit name="org.vx68k.bitbucket.webhook.example" transaction-type="RESOURCE_LOCAL">
     <non-jta-data-source>jdbc/BitbucketWebhook</non-jta-data-source>
     <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="none"/>
+      <property name="eclipselink.ddl- generatio" value="create-or-extend-tables"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
       <!-- Workaround for WildFly. -->
       <property name="wildfly.jpa.twophasebootstrap" value="false"/>
     </properties>
