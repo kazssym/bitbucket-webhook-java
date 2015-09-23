@@ -57,7 +57,7 @@ public class WebhookBranch extends Entity {
                 Level.FINE, "Parsing JSON object (\"{0}\"): {1}",
                 new Object[] {entityType, jsonObject});
         name = jsonObject.getString(WebhookJsonKeys.NAME);
-        parseCommits(jsonObject.getJsonArray(WebhookJsonKeys.HEADS));
+        heads = parseCommits(jsonObject.getJsonArray(WebhookJsonKeys.HEADS));
     }
 
     public String getName() {
