@@ -117,23 +117,22 @@ public class ApplicationConfig implements Serializable {
     public static class Administrator {
 
         @Id
-        @Column(name = "uuid")
-        private UUID uuid;
+        private UUID userUuid;
 
         /**
          * Returns the user UUID of this object.
          * @return user UUID
          */
-        public UUID getUuid() {
-            return uuid;
+        public UUID getUserUuid() {
+            return userUuid;
         }
 
         /**
          * Sets the user UUID of this object.
-         * @param uuid user UUID
+         * @param userUuid user UUID
          */
-        public void setUuid(UUID uuid) {
-            this.uuid = uuid;
+        public void setUserUuid(UUID userUuid) {
+            this.userUuid = userUuid;
         }
     }
 }
