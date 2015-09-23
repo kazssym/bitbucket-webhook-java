@@ -80,7 +80,7 @@
         </nav>
       </div>
       <div class="pure-u-1 pure-u-md-3-4">
-        <main style="margin: 0.5em; overflow: auto;">
+        <main>
           <h:form id="login" styleClass="local-float-right" rendered="#{config.bitbucketClient.credentials != null and user.bitbucketUser == null}">
             <h:commandButton styleClass="pure-button" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
           </h:form>
