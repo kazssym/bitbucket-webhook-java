@@ -56,6 +56,11 @@ public class JsonKeys {
     public static final String COMMITS = "commits";
 
     /**
+     * JSON key for the <code>heads</code> array.
+     */
+    public static final String HEADS = "heads";
+
+    /**
      * JSON key for the <code>created</code> value.
      */
     public static final String CREATED = "created";
@@ -69,6 +74,11 @@ public class JsonKeys {
      * JSON key for the <code>forced</code> value.
      */
     public static final String FORCED = "forced";
+
+    /**
+     * JSON key for the <code>name</code> value.
+     */
+    public static final String NAME = "name";
 
     private JsonKeys() {
     }
