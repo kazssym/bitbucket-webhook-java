@@ -156,6 +156,14 @@ public class RepositoryPush extends Activity {
             this.forced = forced;
         }
 
+        public void setOldState(WebhookBranch oldState) {
+            this.oldState = oldState;
+        }
+
+        public void setNewState(WebhookBranch newState) {
+            this.newState = newState;
+        }
+
         public void setCommits(List<Commit> commits) {
             this.commits = commits;
         }
