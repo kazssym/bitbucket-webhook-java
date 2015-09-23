@@ -47,8 +47,8 @@ public class RepositoryPush extends Activity {
     public RepositoryPush(JsonObject jsonObject) {
         super(jsonObject);
 
-        JsonObject push = jsonObject.getJsonObject(JsonKeys.PUSH);
-        changes = parseChanges(push.getJsonArray(JsonKeys.CHANGES));
+        JsonObject push = jsonObject.getJsonObject(WebhookJsonKeys.PUSH);
+        changes = parseChanges(push.getJsonArray(WebhookJsonKeys.CHANGES));
     }
 
     /**
@@ -104,13 +104,13 @@ public class RepositoryPush extends Activity {
             logger.log(
                     Level.INFO, "Parsing JSON object (change): {0}",
                     jsonObject);
-            created = jsonObject.getBoolean(JsonKeys.CREATED);
-            closed = jsonObject.getBoolean(JsonKeys.CLOSED);
-            forced = jsonObject.getBoolean(JsonKeys.FORCED);
+            created = jsonObject.getBoolean(WebhookJsonKeys.CREATED);
+            closed = jsonObject.getBoolean(WebhookJsonKeys.CLOSED);
+            forced = jsonObject.getBoolean(WebhookJsonKeys.FORCED);
             oldState = new WebhookBranch(jsonObject.getJsonObject(
-                    JsonKeys.OLD));
+                    WebhookJsonKeys.OLD));
             newState = new WebhookBranch(jsonObject.getJsonObject(
-                    JsonKeys.NEW));
+                    WebhookJsonKeys.NEW));
             // TODO: Parse commits.
 
             this.jsonObject = jsonObject;

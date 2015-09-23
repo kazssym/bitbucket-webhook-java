@@ -63,11 +63,11 @@ public class WebhookServlet extends HttpServlet {
         response.getWriter().close();
     }
 
-    protected void dispatch(JsonObject object) {
-        if (object.containsKey(JsonKeys.PUSH)) {
-            repositoryPushEvent.fire(new RepositoryPush(object));
+    protected void dispatch(JsonObject jsonObject) {
+        if (jsonObject.containsKey(WebhookJsonKeys.PUSH)) {
+            repositoryPushEvent.fire(new RepositoryPush(jsonObject));
         } else {
-            log("Unhandled JSON: " + object.toString());
+            log("Unhandled JSON: " + jsonObject.toString());
         }
     }
 }

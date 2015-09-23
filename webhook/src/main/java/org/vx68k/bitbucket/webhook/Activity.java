@@ -40,9 +40,9 @@ public abstract class Activity {
     }
 
     protected Activity(JsonObject jsonObject) {
-        actor = new User(jsonObject.getJsonObject(JsonKeys.ACTOR));
+        actor = new User(jsonObject.getJsonObject(WebhookJsonKeys.ACTOR));
         repository = new Repository(
-                jsonObject.getJsonObject(JsonKeys.REPOSITORY));
+                jsonObject.getJsonObject(WebhookJsonKeys.REPOSITORY));
     }
 
     /**

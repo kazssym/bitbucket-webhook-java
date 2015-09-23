@@ -1,5 +1,5 @@
 /*
- * JsonKeys
+ * WebhookJsonKeys
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -23,7 +23,7 @@ package org.vx68k.bitbucket.webhook;
  * @author Kaz Nishimura
  * @since 4.0
  */
-public class JsonKeys {
+public class WebhookJsonKeys {
 
     /**
      * JSON key for the <code>actor</code> object.
@@ -90,6 +90,6 @@ public class JsonKeys {
      */
     public static final String NAME = "name";
 
-    private JsonKeys() {
+    protected WebhookJsonKeys() {
     }
 }
