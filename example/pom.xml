@@ -110,18 +110,12 @@
     <dependency>
       <groupId>org.vx68k.bitbucket</groupId>
       <artifactId>bitbucket-api-client-oauth</artifactId>
-      <version>3.0</version>
+      <version>4.0</version>
     </dependency>
     <dependency>
       <groupId>org.glassfish</groupId>
       <artifactId>javax.json</artifactId>
       <version>1.0.4</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.richfaces</groupId>
-      <artifactId>richfaces</artifactId>
-      <version>4.5.1.Final</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>

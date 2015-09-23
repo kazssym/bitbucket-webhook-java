@@ -1,5 +1,5 @@
 /*
- * Activity - represents an activity on a Bitbucket repository
+ * Activity
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,53 +18,36 @@
 
 package org.vx68k.bitbucket.webhook;
 
+import java.util.logging.Logger;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.client.Repository;
 import org.vx68k.bitbucket.api.client.User;
 
 /**
- * Represents an activity on a Bitbucket repository.
- *
+ * Activity on a Bitbucket repository.
  * @author Kaz Nishimura
  * @since 1.0
  */
 public abstract class Activity {
 
-    /**
-     * JSON key for the actor object.
-     */
-    protected static final String ACTOR_KEY = "actor";
+    private static final String LOG_MESSAGES = "resources/LogMessages";
 
-    /**
-     * JSON key for the repository object.
-     */
-    protected static final String REPOSITORY_KEY = "repository";
+    private User actor;
 
-    private final JsonObject jsonObject;
+    private Repository repository;
 
-    private final User actor;
-
-    private final Repository repository;
-
-    protected Activity(JsonObject json) {
-        this.jsonObject = json;
-        this.actor = new User(json.getJsonObject(ACTOR_KEY));
-        this.repository = new Repository(json.getJsonObject(REPOSITORY_KEY));
+    protected Activity() {
     }
 
-    /**
-     * Returns the raw JSON object for this push.
-     *
-     * @return JSON object
-     */
-    public JsonObject getJsonObject() {
-        return jsonObject;
+    protected Activity(JsonObject jsonObject) {
+        actor = new User(jsonObject.getJsonObject(WebhookJsonKeys.ACTOR));
+        repository = new Repository(
+                jsonObject.getJsonObject(WebhookJsonKeys.REPOSITORY));
     }
 
     /**
      * Returns the actor of this object.
-     *
-     * @return actor of this object
+     * @return actor
      */
     public User getActor() {
         return actor;
@@ -72,10 +55,34 @@ public abstract class Activity {
 
     /**
      * Returns the repository of this object.
-     *
-     * @return repository of this object
+     * @return repository
      */
     public Repository getRepository() {
         return repository;
+    }
+
+    /**
+     * Sets the actor of this object.
+     * @param actor actor
+     */
+    public void setActor(User actor) {
+        this.actor = actor;
+    }
+
+    /**
+     * Sets the repository of this object.
+     * @param repository repository
+     */
+    public void setRepository(Repository repository) {
+        this.repository = repository;
+    }
+
+    /**
+     * Returns the logger for this package.
+     * @return logger
+     */
+    protected static Logger getLogger() {
+        return Logger.getLogger(
+                Activity.class.getPackage().getName(), LOG_MESSAGES);
     }
 }

@@ -27,16 +27,60 @@
         library.
       </p>
       <h2>Last activity</h2>
-      <div>
-        The last repository push
-        <ui:fragment rendered="#{empty activityLog.lastRepositoryPush}">
-          is not recorded after the most recent startup.
-        </ui:fragment>
-        <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
-          was made by ${activityLog.lastRepositoryPush.actor.username} to ${activityLog.lastRepositoryPush.repository.fullName}:<br/>
-          ${activityLog.lastRepositoryPush.pushJsonObject}.
-        </ui:fragment>
-      </div>
+      <ui:fragment rendered="#{empty activityLog.lastRepositoryPush}">
+        <p>
+          The last repository push is not recorded after the most recent startup.
+        </p>
+      </ui:fragment>
+      <ui:fragment rendered="#{not empty activityLog.lastRepositoryPush}">
+        <p>
+          The last repository push was made by
+          <h:outputLink value="#{activityLog.lastRepositoryPush.actor.links['html']}">
+            <h:outputText value="#{activityLog.lastRepositoryPush.actor.name}"/>
+          </h:outputLink> to
+          <h:outputLink value="#{activityLog.lastRepositoryPush.repository.links['html']}">
+            <h:outputText value="#{activityLog.lastRepositoryPush.repository.fullName}"/>
+          </h:outputLink>.
+        </p>
+        <div class="local-overflow-auto">
+          <table class="pure-table pure-table-horizontal example-table">
+            <thead>
+              <th>Change</th>
+              <th>Attributes</th>
+              <th>JSON contents</th>
+            </thead>
+            <tbody>
+              <ui:repeat value="#{activityLog.lastRepositoryPush.changes}" var="change" varStatus="changeStatus">
+                <tr>
+                  <td>#{changeStatus.index + 1}</td>
+                  <td>
+                    <h:outputText rendered="#{change.created}" value="Created"/>
+                    <h:outputText rendered="#{change.closed}" value="Closed"/>
+                    <h:outputText rendered="#{change.forced}" value="Forced"/>
+                    <h:outputText rendered="#{not (change.created or change.closed or change.forced)}" value="None"/>
+                  </td>
+                  <td>
+                    <table>
+                      <thead>
+                        <th>Key</th>
+                        <th>Value</th>
+                      </thead>
+                      <tbody>
+                        <ui:repeat value="#{change.jsonObject.entrySet().toArray()}" var="entry">
+                          <tr>
+                            <td><h:outputText value="#{entry.key}"/></td>
+                            <td><h:outputText value="#{entry.value}"/></td>
+                          </tr>
+                        </ui:repeat>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </ui:repeat>
+            </tbody>
+          </table>
+        </div>
+      </ui:fragment>
     </ui:define>
   </ui:composition>
 </html>

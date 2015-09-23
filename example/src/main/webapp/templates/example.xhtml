@@ -17,71 +17,86 @@
   You should have received a copy of the GNU Affero General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
   <h:head>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Bitbucket Webhook Example</title>
     <link href="https://cdn.jsdelivr.net/pure/0.6.0/pure-min.css" rel="stylesheet"/>
     <h:outputText value="&lt;!--[if lte IE 8]&gt;" escape="false"/>
-    <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-old-ie-min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-old-ie-min.css" rel="stylesheet" media="screen"/>
     <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
     <h:outputText value="&lt;![if gt IE 8]&gt;" escape="false"/>
-    <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet" media="screen"/>
     <h:outputText value="&lt;![endif]&gt;" escape="false"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
     <link href="#{resource['stylesheets/example.css']}" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js" async="async"/>
-    <script src="#{resource['scripts/example.js']}" async="async"/>
+    <style>
+      /* <![CDATA[ */
+      .local-float-left {
+        float: left;
+      }
+      .local-float-right {
+        float: right;
+      }
+      .local-clear-both {
+        clear: both;
+      }
+      .local-overflow-auto {
+        overflow: auto;
+      }
+      /* ]]> */
+    </style>
   </h:head>
   <h:body>
-    <h:form>
-      <div id="example-toolbar" class="pure-menu pure-menu-horizontal">
-        <h:outputLink styleClass="pure-menu-heading pure-menu-link" style="float: left;" value="#{request.contextPath}/">Bitbucket Webhook Example</h:outputLink>
-        <ul class="pure-menu-list" style="float: right;">
+    <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal">
+      <h:outputLink styleClass="pure-menu-heading pure-menu-link local-float-left" value="#{request.contextPath}/">Bitbucket Webhook Example</h:outputLink>
+      <ul class="pure-menu-list local-float-right">
           <ui:fragment rendered="#{user.administrator}">
             <li class="pure-menu-item pure-menu-disabled">
               <img class="example-icon" src="#{resource['icons/ic_settings_white_18dp.png']}" alt="Settings" title="Application settings"/>
             </li>
           </ui:fragment>
-          <li class="pure-menu-item pure-menu-disabled">
-            <img class="example-icon" src="#{resource['icons/ic_help_white_18dp.png']}" alt="Help" title="Help"/>
-          </li>
-          <ui:fragment rendered="#{user.bitbucketClient.credentials != null}">
-            <ui:fragment rendered="#{user.bitbucketUser != null}">
-              <li id="example-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                <a id="example-account-menu-link" class="pure-menu-link" href="#" onclick="return false;">
-                  <h:outputText value="#{user.bitbucketUser.username}"/>
-                </a>
-                <ul id="example-account-menu-children" class="pure-menu-children">
-                  <li class="pure-menu-item">
-                    <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">Logout</h:commandLink>
-                  </li>
-                </ul>
-              </li>
-            </ui:fragment>
+        <li class="pure-menu-item pure-menu-disabled">
+          <h:graphicImage styleClass="example-icon" name="icons/ic_help_white_18dp.png" alt="Help" title="Help"/>
+        </li>
+        <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
+          <ui:fragment rendered="#{user.bitbucketService.authenticated}">
+            <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+              <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
+                <h:outputText value="#{user.bitbucketService.currentUser.name}"/>
+              </h:outputLink>
+              <ul class="pure-menu-children">
+                <li class="pure-menu-item">
+                  <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">Logout</h:commandLink>
+                </li>
+              </ul>
+            </li>
           </ui:fragment>
-          <ui:fragment rendered="#{user.bitbucketClient.credentials == null}">
-            <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
-          </ui:fragment>
-        </ul>
-        <div style="clear: both;"/>
-      </div>
-      <div class="pure-g">
-        <div class="pure-u-1 pure-u-md-1-4">
-          <nav id="example-nav-menu" class="pure-menu">
-            <div class="pure-menu-heading">No nav menu yet</div>
-          </nav>
-        </div>
-        <div class="pure-u-1 pure-u-md-3-4" style="overflow: auto;">
-          <ui:fragment rendered="#{user.bitbucketClient.credentials != null and user.bitbucketUser == null}">
-            <div style="float:right; margin: 0.5em;" title="Login with Bitbucket">
-              <h:commandButton styleClass="pure-button" action="#{user.login}" value="Login"/>
-            </div>
-          </ui:fragment>
-          <main style="margin: 0.5em;">
-            <ui:insert name="main"/>
-          </main>
-        </div>
-      </div>
+        </ui:fragment>
+        <ui:fragment rendered="#{config.bitbucketClient.credentials == null}">
+          <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
+        </ui:fragment>
+      </ul>
+      <div class="local-clear-both"/>
     </h:form>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-sm-1-4">
+        <nav id="nav-menu" class="pure-menu">
+          <ul class="pure-menu-list">
+            <li class="pure-menu-item pure-menu-disabled">Webhooks</li>
+          </ul>
+        </nav>
+      </div>
+      <div class="pure-u-1 pure-u-sm-3-4">
+        <main>
+          <h:form id="login" styleClass="local-float-right" rendered="#{config.bitbucketClient.credentials != null and not user.bitbucketService.authenticated}">
+            <h:commandButton styleClass="pure-button" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
+          </h:form>
+          <ui:insert name="main"/>
+        </main>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"/>
+    <script src="#{resource['scripts/example.js']}" async="async"/>
   </h:body>
 </html>

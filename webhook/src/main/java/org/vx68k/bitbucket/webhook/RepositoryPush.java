@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
+import org.vx68k.bitbucket.api.client.Commit;
 
 /**
  * Represents a push to a Bitbucket repository.
@@ -36,26 +37,18 @@ public class RepositoryPush extends Activity {
     private static final Logger logger =
             Logger.getLogger(RepositoryPush.class.getPackage().getName());
 
-    private final JsonObject pushJsonObject;
-
     private List<Change> changes;
 
     /**
      * Constructs this object from a JSON object.
      *
-     * @param json JSON object
+     * @param jsonObject JSON object
      */
-    public RepositoryPush(JsonObject json) {
-        super(json);
+    public RepositoryPush(JsonObject jsonObject) {
+        super(jsonObject);
 
-        JsonObject push = json.getJsonObject(JsonKeys.PUSH);
-        changes = parseChanges(push.getJsonArray(JsonKeys.CHANGES));
-
-        pushJsonObject = push;
-    }
-
-    public JsonObject getPushJsonObject() {
-        return pushJsonObject;
+        JsonObject push = jsonObject.getJsonObject(WebhookJsonKeys.PUSH);
+        changes = parseChanges(push.getJsonArray(WebhookJsonKeys.CHANGES));
     }
 
     /**
@@ -76,12 +69,16 @@ public class RepositoryPush extends Activity {
 
     /**
      * Parses a JSON array to a list of changes.
-     * @param json JSON array that represents list of changes
+     * @param jsonArray JSON array that represents list of changes
      * @return list of changes
      */
-    protected List<Change> parseChanges(JsonArray json) {
+    protected List<Change> parseChanges(JsonArray jsonArray) {
+        if (jsonArray == null) {
+            return null;
+        }
+
         List<Change> changes = new ArrayList<Change>();
-        for (JsonValue value : json) {
+        for (JsonValue value : jsonArray) {
             changes.add(new Change((JsonObject) value));
         }
         return changes;
@@ -93,13 +90,82 @@ public class RepositoryPush extends Activity {
      */
     public static class Change {
 
-        public Change() {
-            logger.finer("Creating a blank Change");
+        private boolean created;
+        private boolean closed;
+        private boolean forced;
+        private WebhookBranch oldState;
+        private WebhookBranch newState;
+        private List<Commit> commits;
+
+        // TODO: Remove this field.
+        private final JsonObject jsonObject;
+
+        public Change(JsonObject jsonObject) {
+            logger.log(
+                    Level.INFO, "Parsing JSON object (change): {0}",
+                    jsonObject);
+            created = jsonObject.getBoolean(WebhookJsonKeys.CREATED);
+            closed = jsonObject.getBoolean(WebhookJsonKeys.CLOSED);
+            forced = jsonObject.getBoolean(WebhookJsonKeys.FORCED);
+            oldState = new WebhookBranch(jsonObject.getJsonObject(
+                    WebhookJsonKeys.OLD));
+            newState = new WebhookBranch(jsonObject.getJsonObject(
+                    WebhookJsonKeys.NEW));
+            // TODO: Parse commits.
+
+            this.jsonObject = jsonObject;
         }
 
-        public Change(JsonObject json) {
-            logger.log(
-                    Level.INFO, "Parsing JSON object (change): {0}", json);
+        public boolean isCreated() {
+            return created;
+        }
+
+        public boolean isClosed() {
+            return closed;
+        }
+
+        public boolean isForced() {
+            return forced;
+        }
+
+        public WebhookBranch getOldState() {
+            return oldState;
+        }
+
+        public WebhookBranch getNewState() {
+            return newState;
+        }
+
+        public List<Commit> getCommits() {
+            return commits;
+        }
+
+        public JsonObject getJsonObject() {
+            return jsonObject;
+        }
+
+        public void setCreated(boolean created) {
+            this.created = created;
+        }
+
+        public void setClosed(boolean closed) {
+            this.closed = closed;
+        }
+
+        public void setForced(boolean forced) {
+            this.forced = forced;
+        }
+
+        public void setOldState(WebhookBranch oldState) {
+            this.oldState = oldState;
+        }
+
+        public void setNewState(WebhookBranch newState) {
+            this.newState = newState;
+        }
+
+        public void setCommits(List<Commit> commits) {
+            this.commits = commits;
         }
     }
 }
