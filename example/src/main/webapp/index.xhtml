@@ -47,7 +47,7 @@
             <thead>
               <th>Change</th>
               <th>Attributes</th>
-              <th>JSON</th>
+              <th>JSON contents</th>
             </thead>
             <tbody>
               <ui:repeat value="#{activityLog.lastRepositoryPush.changes}" var="change" varStatus="changeStatus">
@@ -60,7 +60,20 @@
                     <h:outputText rendered="#{not (change.created or change.closed or change.forced)}" value="None"/>
                   </td>
                   <td>
-                    <h:outputText value="#{change.jsonObject}"/>
+                    <table>
+                      <thead>
+                        <th>Key</th>
+                        <th>Value</th>
+                      </thead>
+                      <tbody>
+                        <ui:repeat value="#{change.jsonObject.entrySet().toArray()}" var="entry">
+                          <tr>
+                            <td><h:outputText value="#{entry.key}"/></td>
+                            <td><h:outputText value="#{entry.value}"/></td>
+                          </tr>
+                        </ui:repeat>
+                      </tbody>
+                    </table>
                   </td>
                 </tr>
               </ui:repeat>
