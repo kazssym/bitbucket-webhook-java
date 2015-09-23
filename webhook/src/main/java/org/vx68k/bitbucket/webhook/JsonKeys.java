@@ -46,6 +46,16 @@ public class JsonKeys {
     public static final String LINKS = "links";
 
     /**
+     * JSON key for the <code>old</code> object.
+     */
+    public static final String OLD = "old";
+
+    /**
+     * JSON key for the <code>new</code> object.
+     */
+    public static final String NEW = "new";
+
+    /**
      * JSON key for the <code>changes</code> array.
      */
     public static final String CHANGES = "changes";

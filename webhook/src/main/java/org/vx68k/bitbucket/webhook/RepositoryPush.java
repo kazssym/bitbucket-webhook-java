@@ -91,20 +91,14 @@ public class RepositoryPush extends Activity {
     public static class Change {
 
         private boolean created;
-
         private boolean closed;
-
         private boolean forced;
-
+        private WebhookBranch oldState;
+        private WebhookBranch newState;
         private List<Commit> commits;
 
         // TODO: Remove this field.
         private final JsonObject jsonObject;
-
-        public Change() {
-            logger.finer("Creating a blank Change");
-            this.jsonObject = null;
-        }
 
         public Change(JsonObject jsonObject) {
             logger.log(
@@ -113,6 +107,10 @@ public class RepositoryPush extends Activity {
             created = jsonObject.getBoolean(JsonKeys.CREATED);
             closed = jsonObject.getBoolean(JsonKeys.CLOSED);
             forced = jsonObject.getBoolean(JsonKeys.FORCED);
+            oldState = new WebhookBranch(jsonObject.getJsonObject(
+                    JsonKeys.OLD));
+            newState = new WebhookBranch(jsonObject.getJsonObject(
+                    JsonKeys.NEW));
             // TODO: Parse commits.
 
             this.jsonObject = jsonObject;
@@ -128,6 +126,14 @@ public class RepositoryPush extends Activity {
 
         public boolean isForced() {
             return forced;
+        }
+
+        public WebhookBranch getOldState() {
+            return oldState;
+        }
+
+        public WebhookBranch getNewState() {
+            return newState;
         }
 
         public List<Commit> getCommits() {
