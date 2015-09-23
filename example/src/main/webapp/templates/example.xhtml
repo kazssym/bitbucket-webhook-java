@@ -55,10 +55,10 @@
           <h:graphicImage styleClass="example-icon" name="icons/ic_help_white_18dp.png" alt="Help" title="Help"/>
         </li>
         <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
-          <ui:fragment rendered="#{user.bitbucketUser != null}">
+          <ui:fragment rendered="#{user.bitbucketService.authenticated}">
             <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
               <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
-                <h:outputText value="#{user.bitbucketUser.name}"/>
+                <h:outputText value="#{user.bitbucketService.currentUser.name}"/>
               </h:outputLink>
               <ul class="pure-menu-children">
                 <li class="pure-menu-item">
@@ -82,7 +82,7 @@
       </div>
       <div class="pure-u-1 pure-u-sm-3-4">
         <main>
-          <h:form id="login" styleClass="local-float-right" rendered="#{config.bitbucketClient.credentials != null and user.bitbucketUser == null}">
+          <h:form id="login" styleClass="local-float-right" rendered="#{config.bitbucketClient.credentials != null and not user.bitbucketService.authenticated}">
             <h:commandButton styleClass="pure-button" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
           </h:form>
           <ui:insert name="main"/>
