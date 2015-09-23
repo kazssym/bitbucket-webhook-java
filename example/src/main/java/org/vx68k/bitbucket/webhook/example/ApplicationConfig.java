@@ -19,10 +19,8 @@
 package org.vx68k.bitbucket.webhook.example;
 
 import java.io.Serializable;
-import java.util.UUID;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -77,8 +75,31 @@ public class ApplicationConfig implements Serializable {
      * @since 2.0
      */
     public boolean isAdministrator(User user) {
-        // TODO: Check if the current user is an administrator.
-        return true;
+        EntityManager entityManager =
+                entityManagerFactory.createEntityManager();
+        try {
+            if (entityManager.find(
+                    Administrator.class, user.getUuid().toString()) != null) {
+                return true;
+            }
+
+            // Checks for the initial administrator.
+            String initialAdministratorName = System.getProperty(
+                    Properties.INITIAL_ADMINISTRATOR);
+            if (initialAdministratorName != null
+                    && user.getName().equals(initialAdministratorName)) {
+                // Stores the initial administrator in the persistence unit.
+                Administrator administrator = new Administrator(user);
+                entityManager.getTransaction().begin();
+                entityManager.persist(administrator);
+                entityManager.getTransaction().commit();
+                return true;
+            }
+        } finally {
+            entityManager.close();
+        }
+
+        return false;
     }
 
     /**
@@ -118,13 +139,24 @@ public class ApplicationConfig implements Serializable {
     public static class Administrator {
 
         @Id
-        private UUID userUuid;
+        private String userUuid;
+
+        public Administrator() {
+        }
+
+        public Administrator(String userUuid) {
+            setUserUuid(userUuid);
+        }
+
+        public Administrator(User user) {
+            this(user.getUuid().toString());
+        }
 
         /**
          * Returns the user UUID of this object.
          * @return user UUID
          */
-        public UUID getUserUuid() {
+        public String getUserUuid() {
             return userUuid;
         }
 
@@ -132,7 +164,7 @@ public class ApplicationConfig implements Serializable {
          * Sets the user UUID of this object.
          * @param userUuid user UUID
          */
-        public void setUserUuid(UUID userUuid) {
+        public void setUserUuid(String userUuid) {
             this.userUuid = userUuid;
         }
     }

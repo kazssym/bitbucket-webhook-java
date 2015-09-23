@@ -40,6 +40,12 @@ public class Properties {
     public static final String BITBUCKET_OAUTH_CLIENT_SECRET =
             PREFIX + ".oauth.clientSecret";
 
+    /**
+     * Property key for the Bitbucket user name of the initial administrator.
+     */
+    public static final String INITIAL_ADMINISTRATOR =
+            PREFIX + ".administrator";
+
     private Properties() {
     }
 }
