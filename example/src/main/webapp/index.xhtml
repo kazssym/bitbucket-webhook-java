@@ -42,29 +42,31 @@
             <h:outputText value="#{activityLog.lastRepositoryPush.repository.fullName}"/>
           </h:outputLink>.
         </p>
-        <table class="pure-table pure-table-horizontal example-table">
-          <thead>
-            <th>Change</th>
-            <th>Attributes</th>
-            <th>JSON</th>
-          </thead>
-          <tbody>
-            <ui:repeat value="#{activityLog.lastRepositoryPush.changes}" var="change" varStatus="changeStatus">
-              <tr>
-                <td>#{changeStatus.index + 1}</td>
-                <td>
-                  <h:outputText rendered="#{change.created}" value="Created"/>
-                  <h:outputText rendered="#{change.closed}" value="Closed"/>
-                  <h:outputText rendered="#{change.forced}" value="Forced"/>
-                  <h:outputText rendered="#{not (change.created or change.closed or change.forced)}" value="None"/>
-                </td>
-                <td>
-                  <h:outputText value="#{change.jsonObject}"/>
-                </td>
-              </tr>
-            </ui:repeat>
-          </tbody>
-        </table>
+        <div class="local-overflow-auto">
+          <table class="pure-table pure-table-horizontal example-table">
+            <thead>
+              <th>Change</th>
+              <th>Attributes</th>
+              <th>JSON</th>
+            </thead>
+            <tbody>
+              <ui:repeat value="#{activityLog.lastRepositoryPush.changes}" var="change" varStatus="changeStatus">
+                <tr>
+                  <td>#{changeStatus.index + 1}</td>
+                  <td>
+                    <h:outputText rendered="#{change.created}" value="Created"/>
+                    <h:outputText rendered="#{change.closed}" value="Closed"/>
+                    <h:outputText rendered="#{change.forced}" value="Forced"/>
+                    <h:outputText rendered="#{not (change.created or change.closed or change.forced)}" value="None"/>
+                  </td>
+                  <td>
+                    <h:outputText value="#{change.jsonObject}"/>
+                  </td>
+                </tr>
+              </ui:repeat>
+            </tbody>
+          </table>
+        </div>
       </ui:fragment>
     </ui:define>
   </ui:composition>
